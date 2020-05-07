@@ -7,7 +7,7 @@
 
 # How To Use
 
-1) Read everything in this file, as well as the main [README.md](https://github.com/opensourcemanufacturing/OpenFL/)
+1) Read everything in this file, as well as the main [README.md](opensourcemanufacturing/OpenFL/README.md)
 2) Install Python 2.7
 3) Clone the OpenFL git to the directory of choice on your local computer
 4) Install OpenFL - follow the instructions in the main [README.md](https://github.com/opensourcemanufacturing/OpenFL/)
