@@ -1,5 +1,6 @@
 # Modules in the OpenFL scripts directory are for Python 2.7
-# Use the modules in Python3-OpenFL for Python 3.8 (The Python 2.7 versions will be put into an archive folder eventually)
+# Use the modules in Python3-OpenFL for Python 3.8 
+(The Python 2.7 versions will be put into an archive folder eventually)
 
 # OpenFL
 This repository contains an API for interfacing with the Form 1/1+ 3D printer.
