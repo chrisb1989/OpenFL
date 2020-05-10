@@ -32,11 +32,9 @@ while x == 0:
                 continue
                         
 # This section sets the starting point of the loop to block 1 (layer 2)
-# finds the number of the blocks (layers) on your Form1/1+
-# and uses the highest block number as the stopping point for the script.
+# defines the last block on the printer
 blockNum = 1
-totalBlocks = p.list_blocks()
-lastBlock = totalBlocks[-1]
+lastBlock = (len(p.list_blocks()) -1)
 
 # This loop changes two lines and adds a third line in each
 # block (layer) on the printer. It checks to see if the value has already
