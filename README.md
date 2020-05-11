@@ -1,6 +1,12 @@
 # Modules in the OpenFL scripts directory are for Python 2.7
-# Use the modules in Python3-OpenFL for Python 3.8 
-(The Python 2.7 versions will be put into an archive folder eventually)
+# Use the modules in Python3-OpenFL for Python 3.8 (this is experimental and doesn't work 100%) 
+(The Python 2.7 versions will be put into an archive folder eventually, when the version 3.8 files work properly)
+
+# Windows Executables (experimental but seem to work):
+You can try to run the standalone Windows executable versions of the Python scripts:
+[OpenFLExecutables.zip](https://drive.google.com/file/d/1Apu63HUobVpPnz7v2SjOKnL2YuUqXq28/view?usp=sharing)
+
+Note: You may need to update your USB drivers for the executables to work. Use Zadig to switch your Form1/1+ driver to use LibusbK instead of Winusb. You can find Zadig here: [Zadig](https://zadig.akeo.ie/)
 
 # OpenFL
 This repository contains an API for interfacing with the Form 1/1+ 3D printer.
