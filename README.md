@@ -1,15 +1,23 @@
+# Goals
+This repository contains an API for interfacing with the Form 1/1+ 3D printer. The goals of this project are:
+
+1) Integrate the Form 1 and Form 1+ with third party open source slicing software to untether us from PreForm 2.3.3
+2) Develop a database of third party resin profiles for the Form 1 and Form 1+
+3) Test alternative printing techniques for the Form 1+, like vertical peel
+4) Test replacement consumables, like third party vats and build plates
+5) Test hardware modifications, like laser upgrades, vat wipers, etc.
+
+If you would like to contribute time, consumables (resin, FEP film, vats, build plates, etc.), or hardware to this project, send an email to thelavachemist@gmail.com or open a new Github issue.
+
 # Modules in the OpenFL scripts directory are for Python 2.7
 # Use the modules in Python3-OpenFL for Python 3.8 (this is experimental and doesn't work 100%) 
-(The Python 2.7 versions will be put into an archive folder eventually, when the version 3.8 files work properly)
+(The Python 2.7 versions will be put into an archive folder eventually, if/when the version 3.8 files work properly)
 
 # Windows Executables (experimental but seem to work):
 You can try to run the standalone Windows executable versions of the Community Python scripts:
-[OpenFLExecutables.zip](https://drive.google.com/file/d/1Apu63HUobVpPnz7v2SjOKnL2YuUqXq28/view?usp=sharing)
+[OpenFL Executables](https://github.com/opensourcemanufacturing/OpenFL/releases/tag/0.1)
 
 Note: You may need to update your USB drivers for the executables to work. Use Zadig to switch your Form1/1+ driver to use LibusbK instead of Winusb. You can find Zadig here: [Zadig](https://zadig.akeo.ie/)
-
-# OpenFL
-This repository contains an API for interfacing with the Form 1/1+ 3D printer.
 
 # Summary
 OpenFL provides a number of distinct features for doing interesting non-standard things with a Form 1/1+:
