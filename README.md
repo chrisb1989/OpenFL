@@ -10,8 +10,7 @@ This repository contains an API for interfacing with the Form 1/1+ 3D printer. T
 If you would like to contribute time, consumables (resin, FEP film, vats, build plates, etc.), or hardware to this project, send an email to thelavachemist@gmail.com or open a new Github issue.
 
 # Modules in the OpenFL scripts directory are for Python 2.7
-# Use the modules in Python3-OpenFL for Python 3.8 (this is experimental and doesn't work 100%) 
-(The Python 2.7 versions will be put into an archive folder eventually, if/when the version 3.8 files work properly)
+The Python 3 version of OpenFL does not work properly and causes errors with numpy. I'm hoping to find a fix for this soon.
 
 # Windows Executables (experimental but seem to work):
 You can try to run the standalone Windows executable versions of the Community Python scripts:
