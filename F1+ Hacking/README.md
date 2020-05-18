@@ -2,4 +2,7 @@
 
 I will update this Readme file later...
 
-The Maple bootloader is here: [Formlabs Maple Bootloader](https://github.com/Formlabs/maple-bootloader)
+# Relevant Formlabs Github Repositories:
+The Maple bootloader is here: [Maple Bootloader](https://github.com/Formlabs/maple-bootloader)
+TinyPrintf is here: [TinyPrintf](https://github.com/Formlabs/tinyprintf)
+
