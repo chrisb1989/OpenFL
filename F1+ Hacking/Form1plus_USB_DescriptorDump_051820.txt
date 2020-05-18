@@ -1,0 +1,94 @@
+Information for device Form1 (VID=0x16D0 PID=0x07EB):
+
+Connection Information:
+------------------------------
+Device current bus speed: FullSpeed
+Device supports USB 1.1 specification
+Device address: 0x0002
+Current configuration value: 0x00
+Number of open pipes: 0
+
+Device Descriptor:
+------------------------------
+0x12	bLength
+0x01	bDescriptorType
+0x0200	bcdUSB
+0xFF	bDeviceClass      (Vendor specific)
+0x01	bDeviceSubClass   
+0x01	bDeviceProtocol   
+0x40	bMaxPacketSize0   (64 bytes)
+0x16D0	idVendor
+0x07EB	idProduct
+0x0200	bcdDevice
+0x01	iManufacturer   "Formlabs"
+0x02	iProduct        "Form1"
+0x03	iSerialNumber   "brainygnat"
+0x01	bNumConfigurations
+
+Configuration Descriptor:
+------------------------------
+0x09	bLength
+0x02	bDescriptorType
+0x0020	wTotalLength   (32 bytes)
+0x01	bNumInterfaces
+0x01	bConfigurationValue
+0x00	iConfiguration
+0xC0	bmAttributes   (Self-powered Device)
+0x32	bMaxPower      (100 mA)
+
+Interface Descriptor:
+------------------------------
+0x09	bLength
+0x04	bDescriptorType
+0x00	bInterfaceNumber
+0x00	bAlternateSetting
+0x02	bNumEndPoints
+0xFF	bInterfaceClass      (Vendor specific)
+0x01	bInterfaceSubClass   
+0x01	bInterfaceProtocol   
+0x00	iInterface
+
+Endpoint Descriptor:
+------------------------------
+0x07	bLength
+0x05	bDescriptorType
+0x03	bEndpointAddress  (OUT endpoint 3)
+0x02	bmAttributes      (Transfer: Bulk / Synch: None / Usage: Data)
+0x0040	wMaxPacketSize    (64 bytes)
+0x00	bInterval         
+
+Endpoint Descriptor:
+------------------------------
+0x07	bLength
+0x05	bDescriptorType
+0x81	bEndpointAddress  (IN endpoint 1)
+0x02	bmAttributes      (Transfer: Bulk / Synch: None / Usage: Data)
+0x0040	wMaxPacketSize    (64 bytes)
+0x00	bInterval         
+
+Microsoft OS Descriptor:
+------------------------------
+0x12	bLength
+0x03	bDescriptorType
+Hex dump: 
+0x12 0x03 0x4D 0x00 0x53 0x00 0x46 0x00 0x54 0x00 
+0x31 0x00 0x30 0x00 0x30 0x00 0x20 0x00 
+
+String Descriptor Table
+--------------------------------
+Index  LANGID  String
+0x00   0x0000  0x0409 
+0x01   0x0409  "Formlabs"
+0x02   0x0409  "Form1"
+0x03   0x0409  "brainygnat"
+
+------------------------------
+
+Connection path for device: 
+Intel(R) ICH10 Family USB Universal Host Controller - 3A36
+Root Hub
+Form1 (VID=0x16D0 PID=0x07EB) Port: 2
+
+Running on: Windows 10 or greater (Build Version 18363)
+
+Brought to you by TDD v2.14.0, Apr 15 2020, 13:48:58
