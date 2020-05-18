@@ -1,0 +1,3 @@
+# This Folder Contains Research Into The Inner Workings of F1+
+
+I will update this Readme file later...
