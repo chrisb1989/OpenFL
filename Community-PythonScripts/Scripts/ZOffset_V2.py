@@ -58,6 +58,4 @@ while x == 0:
         except ValueError:
                 print ("You must enter a number or press Enter to continue")
                 continue
-
-
-
+exit(0)
