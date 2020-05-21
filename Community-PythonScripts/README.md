@@ -2,7 +2,8 @@
 
 * These are experimental. Never run a script you don't understand.
 * Read all of the Formlabs OpenFL documentation before beginning. 
-* Python 2.7 is recommended, Python 3.8 did not work properly during testing.
+* Python 2.7 is recommended, Python 3.8 did not work properly during testing (exception below).
+* The ZOffset_V2_Python3.py script is for Python 3. The project is being transitioned to Python 3, so you'll need both versions for now.
 * You can use Windows, but it is recommended that you run Linux on a virtual machine (VM) for Python.
 
 # How To Use
