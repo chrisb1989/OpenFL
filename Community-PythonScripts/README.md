@@ -35,6 +35,5 @@
 
 * This script will delete all FLP blocks currently on your Form1/1+. This is useful to run before sending a new print job to the printer, particularly if you about to run a script that affects every block on the printer - like the Insertz script.
 
-4) [FLP_PrintAll_01_042720.py](https://github.com/opensourcemanufacturing/OpenFL/blob/master/Community-PythonScripts/Scripts/FLP_PrintAll_01_042720.py)
-
-* READ COMMENTS IN SCRIPT BEFORE USING: This is a troubleshooting script that Writes FLP blocks to a text file. This is helpful for understanding FLP files. Read the comments in the script and edit it before running. Look at [FLPBlockDescriptions.md](https://github.com/opensourcemanufacturing/OpenFL/blob/master/Community-PythonScripts/FLPBlockDescriptions.md) for an overview of what is in an FLP block.
+4) Z_Jog_052320.py
+* This script has a GUI. It allows you to move the Z axis in increments of 0.05mm, 0.1mm, 1mm, or 5mm. The script shows your current Z position as a Z offset value in case you want to write it down. The File menu has an option for saving the current Z position as your Z Offset on the SD card in your F1+.
