@@ -21,13 +21,13 @@
 
 # Script Descriptions:
 
-1) [Insertz_100u_V2.py](https://github.com/opensourcemanufacturing/OpenFL/blob/master/Community-PythonScripts/Scripts/Insertz_100u_V2.py)
+1) Vertical Peel Scripts (in the Scripts folder, formerly called InsertZ scripts)
 
 * This script will allow you to use Z lift for peeling and allow you to disable the tilt peeling. You need to run this script at a 0.1mm layer height with these ["btwnLayerRoutine"](https://github.com/opensourcemanufacturing/OpenFL/blob/master/Community-PythonScripts/VerticalLiftProfile.ini) settings. If you use a different layer height or the wrong "btwnLayerRoutine" the script will not work properly and may crash your printer.
 * I recommend deleting all blocks that are currently on your printer before slicing with PreForm. Preform does not delete block numbers when slicing, it overwrites them. So if your current print job is 240 layers tall, and your tallest previous print was 1000 layers tall, the script will run for all 1000 blocks (layers) on your printer. There is a DeleteBlocks.py script that will delete all blocks on the printer (see description below).
 * The print restart option in Preform (File > Printers) works if you want to print the same thing more than once.
 * V2 adds a retry function to script. The OpenFL API is sort of flaky when it comes to writing blocks to the SD card, so this script accounts for that and will retry the write command if it fails. This adds reliability to the script.
-* There are also Insert Z scripts for 25 micron and 50 micron - make sure you are using a vertial lift material profile that is set to the layer height you want to print at, otherwise the print will fail.
+* There are also Vertical Peel scripts for 25 micron and 50 micron - make sure you are using a vertial lift material profile that is set to the layer height you want to print at, otherwise the print will fail.
 
 2) [ZOffset.py](https://github.com/opensourcemanufacturing/OpenFL/blob/master/Community-PythonScripts/Scripts/ZOffset.py)
 * Tune your Z offset for the current print without removing your SD card.
