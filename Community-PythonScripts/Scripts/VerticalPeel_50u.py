@@ -59,7 +59,7 @@ while blockNum <= lastBlock:
         print ("Layer " + str(blockNum) +" finished in " + str(datetime.now() - layerStartTime))
         blockNum += 1
 
-print ("script ended at layer " + str(blockNum) +" out of " + str(lastBlock))
+print ("script ended at layer " + str(blockNum) +" out of " + str(lastBlock+1))
 print("Total time to complete script was " + str(datetime.now()- startTime))
 p.initialize()
 
