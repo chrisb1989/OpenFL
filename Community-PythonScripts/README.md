@@ -38,3 +38,6 @@
 
 4) [Z_Jog_052320.py](https://github.com/opensourcemanufacturing/OpenFL/blob/master/Community-PythonScripts/Scripts/Z_Jog_052320.py)
 * This script has a GUI. It allows you to move the Z axis in increments of 0.05mm, 0.1mm, 1mm, or 5mm. The script shows your current Z position as a Z offset value in case you want to write it down. The File menu has an option for saving the current Z position as your Z Offset on the SD card in your F1+.
+
+5) FLPtoPC.py
+* This script copies all FLP blocks on your SD card to a folder on your local PC. The script will create two directories in your current working directory (location of the script file). There will be a folder named blocks, and inside of that folder will be a directory named for the current date/time, your FLP files will be located in this folder.
