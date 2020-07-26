@@ -582,6 +582,13 @@ class Printer(object):
         """ Given a line segment in mm space, map it to galvo space.
             To make the line straight in mm space, samples may be added to 
             more-closely approximate a straight line.
+            
+            Center of build plate = (0,0)
+            start_xy_mm = starting position in mm expressed as (x, y)
+            end_xy_mm = ending position in mm expressed as (x, y)
+            dt_s = seconds between start_xy_mm and end_xy_mm (formula = distance between points in mm divided by the feedrate in mm/s)
+            mW = laser power in mW
+            
             Returns: An array of shape nx3 (if mW is None) or nx4 (if mW is not None) 
                         of points time deltas in mm and seconds,
                         excluding start_xy_mm and including end_xy_mm,
