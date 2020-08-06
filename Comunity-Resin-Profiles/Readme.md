@@ -12,3 +12,7 @@
 ![image](https://user-images.githubusercontent.com/11083514/53281093-f7591a80-371a-11e9-885d-9934aa359b0c.png)
 **BRAND|RESIN|COLOR:** PEOPOLY|Nex|Neon | **LAYER:** 100u | **BY:** @RSilvers | **FILE: Formlabs Clear 03** 
 
+![image](https://github.com/opensourcemanufacturing/OpenFL/blob/master/Comunity-Resin-Profiles/ResinProfilePhotos/PeopolyBlack_Validator_50u.jpg)
+
+**BRAND|RESIN|COLOR:** PEOPOLY|Model Resin|Black | **LAYER:** 50u | **BY:** @lavachemist | **FILE: [Form_1+_PeopolyBlack_50_stocklaser.ini](Form_1+_PeopolyBlack_50_stocklaser.ini)
+
