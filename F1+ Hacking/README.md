@@ -17,6 +17,9 @@ You can use any hex bitmap image that is 128 x 32 pixels. It should be exactly 5
 
 Similarly, you can change the serial name of your F1/F1+. To find the serial name, search for "machineserial =" (should be somewhere after the 00038000 address); you need to leave the "20" byte between the equals sign and the serial name. You need to make sure that you do not alter the length of the firmware file. If you are using a shorter or longer serial name, offset the difference by adding or removing FF bytes after the 00038CD0 address.
 
+# Grid Table
+The grid table is a 5x5 grid. The lines are spaced 32mm apart, and 0mm X, 0mm Y is in the middle of the build plate: -64, -32, 0, 32, 64 (for each axis)
+
 # Relevant Formlabs Github Repositories:
 - The Maple bootloader is here: [Maple Bootloader](https://github.com/Formlabs/maple-bootloader)
 - TinyPrintf is here: [TinyPrintf](https://github.com/Formlabs/tinyprintf)
