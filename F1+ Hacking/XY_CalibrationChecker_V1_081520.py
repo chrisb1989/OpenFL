@@ -18,7 +18,7 @@ if len(p.list_blocks()) >= 0:
 
 #packets.append(FLP.makeHomingSequence())
 #packets.append(FLP.Dwell(2000))
-packets.append(FLP.LayerStart(0))
+packets.append(F.LayerStart(0))
 
 # Main function
 def flpMaker(x, y):
@@ -38,7 +38,7 @@ for row in grid:
 		flpMaker(point[0], point[1])
 
 # Send to printer
-packets.append(FLP.LayerDone())
+packets.append(F.LayerDone())
 p.write_block_flp(0, packets)
 
 # these are just for troubleshooting/viewing the FLP packet, comment to remove
