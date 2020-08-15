@@ -1,5 +1,5 @@
 from OpenFL import Printer, FLP
-#innocuous test
+
 #use this for a real printer (comment this line if you plan to use a Dummy Printer):
 p=Printer.Printer()
 
