@@ -1,12 +1,10 @@
 from OpenFL import Printer, FLP
 
-# use this for a real printer:
+use this for a real printer:
 p=Printer.Printer()
 
-# OR
-
-# use this for Dummy printer (comment out the start_printing command, or the script will fail):
-# p=Printer.DummyPrinter()
+# uncomment this for Dummy printer (comment out the start_printing command, or the script will fail):
+#p=Printer.DummyPrinter()
 
 # variables (don't change these)
 F=FLP
