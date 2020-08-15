@@ -16,7 +16,7 @@ grid = p.read_grid_table()
 if len(p.list_blocks()) >= 0:
 	p.delete_block(0)
 
-packets.append(F.LayerStart(0))
+packets.append(F.LayerStart(0)) # This puts a marker at the beginning of the block to tell the printer the layer is beginning
 
 # Main function
 def flpMaker(x, y):
@@ -36,7 +36,7 @@ for row in grid:
 		flpMaker(point[0], point[1])
 
 # Send to printer
-packets.append(F.LayerDone())
+packets.append(F.LayerDone()) # This puts a marker at the end of the block to tell the printer that the layer is complete
 p.write_block_flp(0, packets)
 
 # these are just for troubleshooting/viewing the FLP packet, comment to remove
