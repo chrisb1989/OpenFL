@@ -1,5 +1,4 @@
 from OpenFL import Printer, FLP
-import argparse
 
 # variables (don't change these)
 F=FLP
