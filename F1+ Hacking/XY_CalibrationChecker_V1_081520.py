@@ -21,6 +21,7 @@ packets.append(F.LayerStart(0)) # This puts a marker at the beginning of the blo
 # Main function
 def flpMaker(x, y):
 	# first turn off the laser and move to a point
+	packets.append(F.LaserPowerLevel(0))
 	packets.append(F.XYMove([[x, y, 2000]]))
 	# then turn on the laser for 5 seconds in ticks (60,000 * number of seconds)
 	packets.append(F.LaserPowerLevel(32768))
