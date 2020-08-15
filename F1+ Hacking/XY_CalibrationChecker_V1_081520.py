@@ -16,8 +16,6 @@ grid = p.read_grid_table()
 if len(p.list_blocks()) >= 0:
 	p.delete_block(0)
 
-#packets.append(FLP.makeHomingSequence())
-#packets.append(FLP.Dwell(2000))
 packets.append(F.LayerStart(0))
 
 # Main function
@@ -45,5 +43,5 @@ p.write_block_flp(0, packets)
 layer = p.read_block_flp(0)
 print(layer)
 
-# comment this out if you are using a Dummy printer
-p.start_printing(0)
+# uncomment this to print the calibration grid on the printer (will not work with Dummy Printer)
+#p.start_printing(0)
