@@ -1,10 +1,5 @@
 from OpenFL import Printer, FLP
 
-# variables (don't change these)
-F=FLP
-packets = F.Packets()
-grid = p.read_grid_table()
-
 # use this for a real printer:
 p=Printer.Printer()
 
@@ -12,6 +7,11 @@ p=Printer.Printer()
 
 # use this for Dummy printer (comment out the start_printing command, or it might fail):
 # p=Printer.DummyPrinter()
+
+# variables (don't change these)
+F=FLP
+packets = F.Packets()
+grid = p.read_grid_table()
 
 if len(p.list_blocks()) >= 0:
 	p.delete_block(0)
