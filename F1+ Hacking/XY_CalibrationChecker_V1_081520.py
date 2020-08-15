@@ -26,7 +26,7 @@ def flpMaker(x, y):
 	# Turn on the laser
 	packets.append(F.LaserPowerLevel(32768))
 	# adjust the number in the command below if a longer or shorter laser duration is desired
-	packets.append(F.XYMove([[x, y, 300000]]))
+	packets.append(F.XYMove([[x, y, 65535]]))
 	# uncomment for button press between points
 	#packets.append(F.WaitButtonPress("Press The Button!"))
 	return packets
