@@ -5,7 +5,7 @@ p=Printer.Printer()
 
 # OR
 
-# use this for Dummy printer (comment out the start_printing command, or it might fail):
+# use this for Dummy printer (comment out the start_printing command, or the script will fail):
 # p=Printer.DummyPrinter()
 
 # variables (don't change these)
@@ -45,5 +45,5 @@ p.write_block_flp(0, packets)
 layer = p.read_block_flp(0)
 print(layer)
 
-# comment this out if you are using a Dummy printer, and/or if you are just testing
+# comment this out if you are using a Dummy printer
 p.start_printing(0)
