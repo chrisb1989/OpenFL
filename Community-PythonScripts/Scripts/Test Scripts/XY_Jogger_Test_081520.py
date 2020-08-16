@@ -2,15 +2,31 @@
 
 from Tkinter import *
 from OpenFL import Printer, FLP
+import copy
+import numpy as np
 
 
 p=Printer.DummyPrinter() #change to Printer.Printer before using
 root = Tk()
 root.title('XY Calibration Tool')
-gridCal = p.read_grid_table()
+gridCal = copy.deepcopy(p.read_grid_table())
 test = IntVar()
-test.set("0")
+test.set("1")
 
+gridPos = IntVar()
+gridPos.set("1")
+
+def backMove():
+	print gridMap[gridPos]
+
+def leftMove():
+	print gridMap[gridPos]
+
+def rightMove():
+	print gridMap[gridPos]
+
+def forwardMove():
+	print (gridMap[gridPos])
 
 # define buttons
 
@@ -42,38 +58,38 @@ Label25 = Label (root, text=str(gridCal[4][4][0]) + " , " + str(gridCal[4][4][1]
 
 # Radio Buttons
 
-Radio01 = Radiobutton(root, text="#01", variable=test, value=1)
-Radio02 = Radiobutton(root, text="#02", variable=test, value=2)
-Radio03 = Radiobutton(root, text="#03", variable=test, value=3)
-Radio04 = Radiobutton(root, text="#04", variable=test, value=4)
-Radio05 = Radiobutton(root, text="#05", variable=test, value=5)
-Radio06 = Radiobutton(root, text="#06", variable=test, value=8)
-Radio07 = Radiobutton(root, text="#07", variable=test, value=7)
-Radio08 = Radiobutton(root, text="#08", variable=test, value=8)
-Radio09 = Radiobutton(root, text="#09", variable=test, value=9)
-Radio10 = Radiobutton(root, text="#10", variable=test, value=10)
-Radio11 = Radiobutton(root, text="#11", variable=test, value=11)
-Radio12 = Radiobutton(root, text="#12", variable=test, value=12)
-Radio13 = Radiobutton(root, text="#13", variable=test, value=13)
-Radio14 = Radiobutton(root, text="#14", variable=test, value=14)
-Radio15 = Radiobutton(root, text="#15", variable=test, value=15)
-Radio16 = Radiobutton(root, text="#16", variable=test, value=16)
-Radio17 = Radiobutton(root, text="#17", variable=test, value=17)
-Radio18 = Radiobutton(root, text="#18", variable=test, value=18)
-Radio19 = Radiobutton(root, text="#19", variable=test, value=19)
-Radio20 = Radiobutton(root, text="#20", variable=test, value=20)
-Radio21 = Radiobutton(root, text="#21", variable=test, value=21)
-Radio22 = Radiobutton(root, text="#22", variable=test, value=22)
-Radio23 = Radiobutton(root, text="#23", variable=test, value=23)
-Radio24 = Radiobutton(root, text="#24", variable=test, value=24)
-Radio25 = Radiobutton(root, text="#25", variable=test, value=25)
+Radio01 = Radiobutton(root, text="#01", variable=gridPos, value=1)
+Radio02 = Radiobutton(root, text="#02", variable=gridPos, value=2)
+Radio03 = Radiobutton(root, text="#03", variable=gridPos, value=3)
+Radio04 = Radiobutton(root, text="#04", variable=gridPos, value=4)
+Radio05 = Radiobutton(root, text="#05", variable=gridPos, value=5)
+Radio06 = Radiobutton(root, text="#06", variable=gridPos, value=8)
+Radio07 = Radiobutton(root, text="#07", variable=gridPos, value=7)
+Radio08 = Radiobutton(root, text="#08", variable=gridPos, value=8)
+Radio09 = Radiobutton(root, text="#09", variable=gridPos, value=9)
+Radio10 = Radiobutton(root, text="#10", variable=gridPos, value=10)
+Radio11 = Radiobutton(root, text="#11", variable=gridPos, value=11)
+Radio12 = Radiobutton(root, text="#12", variable=gridPos, value=12)
+Radio13 = Radiobutton(root, text="#13", variable=gridPos, value=13)
+Radio14 = Radiobutton(root, text="#14", variable=gridPos, value=14)
+Radio15 = Radiobutton(root, text="#15", variable=gridPos, value=15)
+Radio16 = Radiobutton(root, text="#16", variable=gridPos, value=16)
+Radio17 = Radiobutton(root, text="#17", variable=gridPos, value=17)
+Radio18 = Radiobutton(root, text="#18", variable=gridPos, value=18)
+Radio19 = Radiobutton(root, text="#19", variable=gridPos, value=19)
+Radio20 = Radiobutton(root, text="#20", variable=gridPos, value=20)
+Radio21 = Radiobutton(root, text="#21", variable=gridPos, value=21)
+Radio22 = Radiobutton(root, text="#22", variable=gridPos, value=22)
+Radio23 = Radiobutton(root, text="#23", variable=gridPos, value=23)
+Radio24 = Radiobutton(root, text="#24", variable=gridPos, value=24)
+Radio25 = Radiobutton(root, text="#25", variable=gridPos, value=25)
 
 # Buttons
 
-button_back = Button(root, text="Back", padx=50, pady=20, command=test)
-button_left = Button(root, text="Left", padx=42, pady=20, command=test)
-button_right = Button(root, text="Right", padx=37, pady=20, command=test)
-button_forward = Button(root, text="Forward", padx=27, pady=20, command=test)
+button_back = Button(root, text="Back", padx=50, pady=20, command=backMove)
+button_left = Button(root, text="Left", padx=42, pady=20, command=leftMove)
+button_right = Button(root, text="Right", padx=37, pady=20, command=rightMove)
+button_forward = Button(root, text="Forward", padx=27, pady=20, command=forwardMove)
 
 
 # Put stuff on the screen
@@ -136,6 +152,11 @@ button_right.grid(row=7, column=7)
 button_forward.grid(row=8, column=5)
 
 
+f = open("GridCalibrationTable.txt", "w", )
+f.write(str(gridCal.tolist()))
+f.close()
+
+print(gridCal[gridMap[1]])
 
 root.mainloop()
 
