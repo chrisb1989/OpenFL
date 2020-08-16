@@ -6,12 +6,15 @@ from OpenFL import Printer, FLP
 import numpy as np
 
 
-p=Printer.Printer() # Uncomment for real printer
+#p=Printer.Printer() # Uncomment for real printer
+p=Printer.DummyPrinter() #This is for testing, comment when using real printer
 p.initialize()
-#p=Printer.DummyPrinter() #This is for testing, comment when using real printer
 root = Tk()
 # name of the Tkinter window:
 root.title('Photonsters Form 1+ Grid Calibration Tool')
+# use the Photonsters image as a window icon
+img = Image("photo", file="Photonsters.gif")
+root.tk.call('wm','iconphoto',root._w,img)
 
 # use ravel to flatten the grid table to 1D
 gridCal = np.ravel(p.read_grid_table())
