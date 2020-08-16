@@ -2,7 +2,6 @@
 
 from Tkinter import *
 from OpenFL import Printer, FLP
-import copy
 import numpy as np
 
 
@@ -21,6 +20,8 @@ gridPos.set("0")
 
 tickNumber = IntVar()
 tickNumber.set("10")
+
+# This section sets up a counter and function for updating the label text
 
 def backMove():
 	global jogX
@@ -89,6 +90,34 @@ def saveGrid():
 	f.write(str(np.reshape(gridCal, (5,5,2)).tolist()))
 	f.close()
 
+"""
+This section is a list of variables used for dynamically updating the label text of the grid points
+"""
+textVar01 = StringVar()
+textVar02 = StringVar()
+textVar03 = StringVar()
+textVar04 = StringVar()
+textVar05 = StringVar()
+textVar06 = StringVar()
+textVar07 = StringVar()
+textVar08 = StringVar()
+textVar09 = StringVar()
+textVar10 = StringVar()
+textVar11 = StringVar()
+textVar12 = StringVar()
+textVar13 = StringVar()
+textVar14 = StringVar()
+textVar15 = StringVar()
+textVar16 = StringVar()
+textVar17 = StringVar()
+textVar18 = StringVar()
+textVar19 = StringVar()
+textVar20 = StringVar()
+textVar21 = StringVar()
+textVar22 = StringVar()
+textVar23 = StringVar()
+textVar24 = StringVar()
+textVar25 = StringVar()
 """ 
 
 This section defines Calibration Point Labels.
@@ -99,31 +128,31 @@ NOTE: These should dynamically update in the GUI - Need to fix this.
 
 """
 
-Label01 = Label (root, text=str(gridCal[0]) + " , " + str(gridCal[1]), height = 5, width = 12, relief = "raised")
-Label02 = Label (root, text=str(gridCal[2]) + " , " + str(gridCal[3]), height = 5, width = 12, relief = "raised")
-Label03 = Label (root, text=str(gridCal[4]) + " , " + str(gridCal[5]), height = 5, width = 12, relief = "raised")
-Label04 = Label (root, text=str(gridCal[6]) + " , " + str(gridCal[7]), height = 5, width = 12, relief = "raised")
-Label05 = Label (root, text=str(gridCal[8]) + " , " + str(gridCal[9]), height = 5, width = 12, relief = "raised")
-Label06 = Label (root, text=str(gridCal[10]) + " , " + str(gridCal[11]), height = 5, width = 12, relief = "raised")
-Label07 = Label (root, text=str(gridCal[12]) + " , " + str(gridCal[13]), height = 5, width = 12, relief = "raised")
-Label08 = Label (root, text=str(gridCal[14]) + " , " + str(gridCal[15]), height = 5, width = 12, relief = "raised")
-Label09 = Label (root, text=str(gridCal[16]) + " , " + str(gridCal[17]), height = 5, width = 12, relief = "raised")
-Label10 = Label (root, text=str(gridCal[18]) + " , " + str(gridCal[19]), height = 5, width = 12, relief = "raised")
-Label11 = Label (root, text=str(gridCal[20]) + " , " + str(gridCal[21]), height = 5, width = 12, relief = "raised")
-Label12 = Label (root, text=str(gridCal[22]) + " , " + str(gridCal[23]), height = 5, width = 12, relief = "raised")
-Label13 = Label (root, text=str(gridCal[24]) + " , " + str(gridCal[25]), height = 5, width = 12, relief = "raised")
-Label14 = Label (root, text=str(gridCal[26]) + " , " + str(gridCal[27]), height = 5, width = 12, relief = "raised")
-Label15 = Label (root, text=str(gridCal[28]) + " , " + str(gridCal[29]), height = 5, width = 12, relief = "raised")
-Label16 = Label (root, text=str(gridCal[30]) + " , " + str(gridCal[31]), height = 5, width = 12, relief = "raised")
-Label17 = Label (root, text=str(gridCal[32]) + " , " + str(gridCal[33]), height = 5, width = 12, relief = "raised")
-Label18 = Label (root, text=str(gridCal[34]) + " , " + str(gridCal[35]), height = 5, width = 12, relief = "raised")
-Label19 = Label (root, text=str(gridCal[36]) + " , " + str(gridCal[37]), height = 5, width = 12, relief = "raised")
-Label20 = Label (root, text=str(gridCal[38]) + " , " + str(gridCal[39]), height = 5, width = 12, relief = "raised")
-Label21 = Label (root, text=str(gridCal[40]) + " , " + str(gridCal[41]), height = 5, width = 12, relief = "raised")
-Label22 = Label (root, text=str(gridCal[42]) + " , " + str(gridCal[43]), height = 5, width = 12, relief = "raised")
-Label23 = Label (root, text=str(gridCal[44]) + " , " + str(gridCal[45]), height = 5, width = 12, relief = "raised")
-Label24 = Label (root, text=str(gridCal[46]) + " , " + str(gridCal[47]), height = 5, width = 12, relief = "raised")
-Label25 = Label (root, text=str(gridCal[48]) + " , " + str(gridCal[49]), height = 5, width = 12, relief = "raised")
+Label01 = Label (root, textvariable=textVar01, height = 5, width = 12, relief = "raised")
+Label02 = Label (root, textvariable=textVar02, height = 5, width = 12, relief = "raised")
+Label03 = Label (root, textvariable=textVar03, height = 5, width = 12, relief = "raised")
+Label04 = Label (root, textvariable=textVar04, height = 5, width = 12, relief = "raised")
+Label05 = Label (root, textvariable=textVar05, height = 5, width = 12, relief = "raised")
+Label06 = Label (root, textvariable=textVar06, height = 5, width = 12, relief = "raised")
+Label07 = Label (root, textvariable=textVar07, height = 5, width = 12, relief = "raised")
+Label08 = Label (root, textvariable=textVar08, height = 5, width = 12, relief = "raised")
+Label09 = Label (root, textvariable=textVar09, height = 5, width = 12, relief = "raised")
+Label10 = Label (root, textvariable=textVar10, height = 5, width = 12, relief = "raised")
+Label11 = Label (root, textvariable=textVar11, height = 5, width = 12, relief = "raised")
+Label12 = Label (root, textvariable=textVar12, height = 5, width = 12, relief = "raised")
+Label13 = Label (root, textvariable=textVar13, height = 5, width = 12, relief = "raised")
+Label14 = Label (root, textvariable=textVar14, height = 5, width = 12, relief = "raised")
+Label15 = Label (root, textvariable=textVar15, height = 5, width = 12, relief = "raised")
+Label16 = Label (root, textvariable=textVar16, height = 5, width = 12, relief = "raised")
+Label17 = Label (root, textvariable=textVar17, height = 5, width = 12, relief = "raised")
+Label18 = Label (root, textvariable=textVar18, height = 5, width = 12, relief = "raised")
+Label19 = Label (root, textvariable=textVar19, height = 5, width = 12, relief = "raised")
+Label20 = Label (root, textvariable=textVar20, height = 5, width = 12, relief = "raised")
+Label21 = Label (root, textvariable=textVar21, height = 5, width = 12, relief = "raised")
+Label22 = Label (root, textvariable=textVar22, height = 5, width = 12, relief = "raised")
+Label23 = Label (root, textvariable=textVar23, height = 5, width = 12, relief = "raised")
+Label24 = Label (root, textvariable=textVar24, height = 5, width = 12, relief = "raised")
+Label25 = Label (root, textvariable=textVar25, height = 5, width = 12, relief = "raised")
 
 # Grid point radio buttons - These are for selecting a grid point to edit. 
 
@@ -160,10 +189,10 @@ RadioTick100 = Radiobutton(root, text="100 ticks", variable=tickNumber, value=10
 
 # Increment buttons - these move the laser spot around:
 
-button_back = Button(root, text="Back", padx=50, pady=20, command=backMove)
-button_left = Button(root, text="Left", padx=42, pady=20, command=leftMove)
-button_right = Button(root, text="Right", padx=37, pady=20, command=rightMove)
-button_forward = Button(root, text="Forward", padx=27, pady=20, command=forwardMove)
+button_back = Button(root, text="X +", padx=27, pady=20, command=backMove)
+button_left = Button(root, text="Y -", padx=27, pady=20, command=leftMove)
+button_right = Button(root, text="Y +", padx=27, pady=20, command=rightMove)
+button_forward = Button(root, text="X -", padx=27, pady=20, command=forwardMove)
 
 # Save Button - This button saves the updated grid calibration to a file on your computer
 button_save = Button(root, text="Save", padx=27, pady=20, command=saveGrid)
@@ -172,6 +201,7 @@ button_save = Button(root, text="Save", padx=27, pady=20, command=saveGrid)
 
 # Put stuff on the screen - This section arranges the Tkinter GUI elements on the screen
 
+# Label arrangement
 Label01.grid(row=4, column=1)
 Label02.grid(row=4, column=3)
 Label03.grid(row=4, column=5)
@@ -198,6 +228,7 @@ Label23.grid(row=0, column=5)
 Label24.grid(row=0, column=7)
 Label25.grid(row=0, column=9)
 
+# radio button arrangement
 Radio01.grid(row=4, column=0)
 Radio02.grid(row=4, column=2)
 Radio03.grid(row=4, column=4)
@@ -227,12 +258,39 @@ RadioTick001.grid(row=6, column=1)
 RadioTick010.grid(row=7, column=1)
 RadioTick100.grid(row=8, column=1)
 
-
+# button arrangement
 button_back.grid(row=6, column=5)
 button_left.grid(row=7, column=3)
 button_right.grid(row=7, column=7)
 button_forward.grid(row=8, column=5)
 button_save.grid(row=9, column =5)
+
+# This section sets the text variable of the labels so they dynamically update
+textVar01.set('x= '+str(gridCal[0])+'\n y= '+(str(gridCal[1])))
+textVar02.set('x= '+str(gridCal[2])+'\n y= '+(str(gridCal[3])))
+textVar03.set('x= '+str(gridCal[4])+'\n y= '+(str(gridCal[5])))
+textVar04.set('x= '+str(gridCal[6])+'\n y= '+(str(gridCal[7])))
+textVar05.set('x= '+str(gridCal[8])+'\n y= '+(str(gridCal[9])))
+textVar06.set('x= '+str(gridCal[10])+'\n y= '+(str(gridCal[11])))
+textVar07.set('x= '+str(gridCal[12])+'\n y= '+(str(gridCal[13])))
+textVar08.set('x= '+str(gridCal[14])+'\n y= '+(str(gridCal[14])))
+textVar09.set('x= '+str(gridCal[16])+'\n y= '+(str(gridCal[17])))
+textVar10.set('x= '+str(gridCal[18])+'\n y= '+(str(gridCal[19])))
+textVar11.set('x= '+str(gridCal[20])+'\n y= '+(str(gridCal[21])))
+textVar12.set('x= '+str(gridCal[22])+'\n y= '+(str(gridCal[23])))
+textVar13.set('x= '+str(gridCal[24])+'\n y= '+(str(gridCal[25])))
+textVar14.set('x= '+str(gridCal[26])+'\n y= '+(str(gridCal[27])))
+textVar15.set('x= '+str(gridCal[28])+'\n y= '+(str(gridCal[29])))
+textVar16.set('x= '+str(gridCal[30])+'\n y= '+(str(gridCal[31])))
+textVar17.set('x= '+str(gridCal[32])+'\n y= '+(str(gridCal[33])))
+textVar18.set('x= '+str(gridCal[34])+'\n y= '+(str(gridCal[25])))
+textVar19.set('x= '+str(gridCal[36])+'\n y= '+(str(gridCal[37])))
+textVar20.set('x= '+str(gridCal[38])+'\n y= '+(str(gridCal[39])))
+textVar21.set('x= '+str(gridCal[40])+'\n y= '+(str(gridCal[41])))
+textVar22.set('x= '+str(gridCal[42])+'\n y= '+(str(gridCal[43])))
+textVar23.set('x= '+str(gridCal[44])+'\n y= '+(str(gridCal[45])))
+textVar24.set('x= '+str(gridCal[46])+'\n y= '+(str(gridCal[47])))
+textVar25.set('x= '+str(gridCal[48])+'\n y= '+(str(gridCal[49])))
 
 # This is the end of the Tkinter loop
 root.mainloop()
