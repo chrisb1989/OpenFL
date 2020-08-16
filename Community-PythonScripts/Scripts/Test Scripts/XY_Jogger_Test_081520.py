@@ -10,79 +10,86 @@ p=Printer.DummyPrinter() #change to Printer.Printer before using
 root = Tk()
 root.title('XY Calibration Tool')
 gridCal = np.ravel(p.read_grid_table())
-test = IntVar()
-test.set("1")
+
 
 gridPos = IntVar()
-gridPos.set("1")
+gridPos.set("0")
 
 def backMove():
-	print gridMap[gridPos]
+	global jogX
+	jogX = gridPos.get() + 1
+	print (jogX)
 
 def leftMove():
-	print gridMap[gridPos]
+	global jogX
+	jogX = gridPos.get()
+	print (jogX)
 
 def rightMove():
-	print gridMap[gridPos]
+	global jogY
+	jogY = gridPos.get() + 1
+	print (jogY)
 
 def forwardMove():
-	print (gridMap[gridPos])
+	global jogY
+	jogY = gridPos.get()
+	print (jogY)
 
 # define buttons
 
-Label01 = Label (root, text=str(gridCal[0][0][0]) + " , " + str(gridCal[0][0][1]), height = 5, width = 12, relief = "raised")
-Label02 = Label (root, text=str(gridCal[0][1][0]) + " , " + str(gridCal[0][1][1]), height = 5, width = 12, relief = "raised")
-Label03 = Label (root, text=str(gridCal[0][2][0]) + " , " + str(gridCal[0][2][1]), height = 5, width = 12, relief = "raised")
-Label04 = Label (root, text=str(gridCal[0][3][0]) + " , " + str(gridCal[0][3][1]), height = 5, width = 12, relief = "raised")
-Label05 = Label (root, text=str(gridCal[0][4][0]) + " , " + str(gridCal[0][4][1]), height = 5, width = 12, relief = "raised")
-Label06 = Label (root, text=str(gridCal[1][0][0]) + " , " + str(gridCal[1][0][1]), height = 5, width = 12, relief = "raised")
-Label07 = Label (root, text=str(gridCal[1][1][0]) + " , " + str(gridCal[1][1][1]), height = 5, width = 12, relief = "raised")
-Label08 = Label (root, text=str(gridCal[1][2][0]) + " , " + str(gridCal[1][2][1]), height = 5, width = 12, relief = "raised")
-Label09 = Label (root, text=str(gridCal[1][3][0]) + " , " + str(gridCal[1][3][1]), height = 5, width = 12, relief = "raised")
-Label10 = Label (root, text=str(gridCal[1][4][0]) + " , " + str(gridCal[1][4][1]), height = 5, width = 12, relief = "raised")
-Label11 = Label (root, text=str(gridCal[2][0][0]) + " , " + str(gridCal[2][0][1]), height = 5, width = 12, relief = "raised")
-Label12 = Label (root, text=str(gridCal[2][1][0]) + " , " + str(gridCal[2][1][1]), height = 5, width = 12, relief = "raised")
-Label13 = Label (root, text=str(gridCal[2][2][0]) + " , " + str(gridCal[2][2][1]), height = 5, width = 12, relief = "raised")
-Label14 = Label (root, text=str(gridCal[2][3][0]) + " , " + str(gridCal[2][3][1]), height = 5, width = 12, relief = "raised")
-Label15 = Label (root, text=str(gridCal[2][4][0]) + " , " + str(gridCal[2][4][1]), height = 5, width = 12, relief = "raised")
-Label16 = Label (root, text=str(gridCal[3][0][0]) + " , " + str(gridCal[3][0][1]), height = 5, width = 12, relief = "raised")
-Label17 = Label (root, text=str(gridCal[3][1][0]) + " , " + str(gridCal[3][1][1]), height = 5, width = 12, relief = "raised")
-Label18 = Label (root, text=str(gridCal[3][2][0]) + " , " + str(gridCal[3][2][1]), height = 5, width = 12, relief = "raised")
-Label19 = Label (root, text=str(gridCal[3][3][0]) + " , " + str(gridCal[3][3][1]), height = 5, width = 12, relief = "raised")
-Label20 = Label (root, text=str(gridCal[3][4][0]) + " , " + str(gridCal[3][4][1]), height = 5, width = 12, relief = "raised")
-Label21 = Label (root, text=str(gridCal[4][0][0]) + " , " + str(gridCal[4][0][1]), height = 5, width = 12, relief = "raised")
-Label22 = Label (root, text=str(gridCal[4][1][0]) + " , " + str(gridCal[4][1][1]), height = 5, width = 12, relief = "raised")
-Label23 = Label (root, text=str(gridCal[4][2][0]) + " , " + str(gridCal[4][2][1]), height = 5, width = 12, relief = "raised")
-Label24 = Label (root, text=str(gridCal[4][3][0]) + " , " + str(gridCal[4][3][1]), height = 5, width = 12, relief = "raised")
-Label25 = Label (root, text=str(gridCal[4][4][0]) + " , " + str(gridCal[4][4][1]), height = 5, width = 12, relief = "raised")
+Label01 = Label (root, text=str(gridCal[0]) + " , " + str(gridCal[1]), height = 5, width = 12, relief = "raised")
+Label02 = Label (root, text=str(gridCal[2]) + " , " + str(gridCal[3]), height = 5, width = 12, relief = "raised")
+Label03 = Label (root, text=str(gridCal[4]) + " , " + str(gridCal[5]), height = 5, width = 12, relief = "raised")
+Label04 = Label (root, text=str(gridCal[6]) + " , " + str(gridCal[7]), height = 5, width = 12, relief = "raised")
+Label05 = Label (root, text=str(gridCal[8]) + " , " + str(gridCal[9]), height = 5, width = 12, relief = "raised")
+Label06 = Label (root, text=str(gridCal[10]) + " , " + str(gridCal[11]), height = 5, width = 12, relief = "raised")
+Label07 = Label (root, text=str(gridCal[12]) + " , " + str(gridCal[13]), height = 5, width = 12, relief = "raised")
+Label08 = Label (root, text=str(gridCal[14]) + " , " + str(gridCal[15]), height = 5, width = 12, relief = "raised")
+Label09 = Label (root, text=str(gridCal[16]) + " , " + str(gridCal[17]), height = 5, width = 12, relief = "raised")
+Label10 = Label (root, text=str(gridCal[18]) + " , " + str(gridCal[19]), height = 5, width = 12, relief = "raised")
+Label11 = Label (root, text=str(gridCal[20]) + " , " + str(gridCal[21]), height = 5, width = 12, relief = "raised")
+Label12 = Label (root, text=str(gridCal[22]) + " , " + str(gridCal[23]), height = 5, width = 12, relief = "raised")
+Label13 = Label (root, text=str(gridCal[24]) + " , " + str(gridCal[25]), height = 5, width = 12, relief = "raised")
+Label14 = Label (root, text=str(gridCal[26]) + " , " + str(gridCal[27]), height = 5, width = 12, relief = "raised")
+Label15 = Label (root, text=str(gridCal[28]) + " , " + str(gridCal[29]), height = 5, width = 12, relief = "raised")
+Label16 = Label (root, text=str(gridCal[30]) + " , " + str(gridCal[31]), height = 5, width = 12, relief = "raised")
+Label17 = Label (root, text=str(gridCal[32]) + " , " + str(gridCal[33]), height = 5, width = 12, relief = "raised")
+Label18 = Label (root, text=str(gridCal[34]) + " , " + str(gridCal[35]), height = 5, width = 12, relief = "raised")
+Label19 = Label (root, text=str(gridCal[36]) + " , " + str(gridCal[37]), height = 5, width = 12, relief = "raised")
+Label20 = Label (root, text=str(gridCal[38]) + " , " + str(gridCal[39]), height = 5, width = 12, relief = "raised")
+Label21 = Label (root, text=str(gridCal[40]) + " , " + str(gridCal[41]), height = 5, width = 12, relief = "raised")
+Label22 = Label (root, text=str(gridCal[42]) + " , " + str(gridCal[43]), height = 5, width = 12, relief = "raised")
+Label23 = Label (root, text=str(gridCal[44]) + " , " + str(gridCal[45]), height = 5, width = 12, relief = "raised")
+Label24 = Label (root, text=str(gridCal[46]) + " , " + str(gridCal[47]), height = 5, width = 12, relief = "raised")
+Label25 = Label (root, text=str(gridCal[48]) + " , " + str(gridCal[49]), height = 5, width = 12, relief = "raised")
 
 # Radio Buttons
 
-Radio01 = Radiobutton(root, text="#01", variable=gridPos, value=1)
+Radio01 = Radiobutton(root, text="#01", variable=gridPos, value=0)
 Radio02 = Radiobutton(root, text="#02", variable=gridPos, value=2)
-Radio03 = Radiobutton(root, text="#03", variable=gridPos, value=3)
-Radio04 = Radiobutton(root, text="#04", variable=gridPos, value=4)
-Radio05 = Radiobutton(root, text="#05", variable=gridPos, value=5)
-Radio06 = Radiobutton(root, text="#06", variable=gridPos, value=8)
-Radio07 = Radiobutton(root, text="#07", variable=gridPos, value=7)
-Radio08 = Radiobutton(root, text="#08", variable=gridPos, value=8)
-Radio09 = Radiobutton(root, text="#09", variable=gridPos, value=9)
-Radio10 = Radiobutton(root, text="#10", variable=gridPos, value=10)
-Radio11 = Radiobutton(root, text="#11", variable=gridPos, value=11)
-Radio12 = Radiobutton(root, text="#12", variable=gridPos, value=12)
-Radio13 = Radiobutton(root, text="#13", variable=gridPos, value=13)
-Radio14 = Radiobutton(root, text="#14", variable=gridPos, value=14)
-Radio15 = Radiobutton(root, text="#15", variable=gridPos, value=15)
-Radio16 = Radiobutton(root, text="#16", variable=gridPos, value=16)
-Radio17 = Radiobutton(root, text="#17", variable=gridPos, value=17)
-Radio18 = Radiobutton(root, text="#18", variable=gridPos, value=18)
-Radio19 = Radiobutton(root, text="#19", variable=gridPos, value=19)
-Radio20 = Radiobutton(root, text="#20", variable=gridPos, value=20)
-Radio21 = Radiobutton(root, text="#21", variable=gridPos, value=21)
-Radio22 = Radiobutton(root, text="#22", variable=gridPos, value=22)
-Radio23 = Radiobutton(root, text="#23", variable=gridPos, value=23)
-Radio24 = Radiobutton(root, text="#24", variable=gridPos, value=24)
-Radio25 = Radiobutton(root, text="#25", variable=gridPos, value=25)
+Radio03 = Radiobutton(root, text="#03", variable=gridPos, value=4)
+Radio04 = Radiobutton(root, text="#04", variable=gridPos, value=6)
+Radio05 = Radiobutton(root, text="#05", variable=gridPos, value=8)
+Radio06 = Radiobutton(root, text="#06", variable=gridPos, value=10)
+Radio07 = Radiobutton(root, text="#07", variable=gridPos, value=12)
+Radio08 = Radiobutton(root, text="#08", variable=gridPos, value=14)
+Radio09 = Radiobutton(root, text="#09", variable=gridPos, value=16)
+Radio10 = Radiobutton(root, text="#10", variable=gridPos, value=18)
+Radio11 = Radiobutton(root, text="#11", variable=gridPos, value=20)
+Radio12 = Radiobutton(root, text="#12", variable=gridPos, value=22)
+Radio13 = Radiobutton(root, text="#13", variable=gridPos, value=24)
+Radio14 = Radiobutton(root, text="#14", variable=gridPos, value=26)
+Radio15 = Radiobutton(root, text="#15", variable=gridPos, value=28)
+Radio16 = Radiobutton(root, text="#16", variable=gridPos, value=30)
+Radio17 = Radiobutton(root, text="#17", variable=gridPos, value=32)
+Radio18 = Radiobutton(root, text="#18", variable=gridPos, value=34)
+Radio19 = Radiobutton(root, text="#19", variable=gridPos, value=36)
+Radio20 = Radiobutton(root, text="#20", variable=gridPos, value=38)
+Radio21 = Radiobutton(root, text="#21", variable=gridPos, value=40)
+Radio22 = Radiobutton(root, text="#22", variable=gridPos, value=42)
+Radio23 = Radiobutton(root, text="#23", variable=gridPos, value=44)
+Radio24 = Radiobutton(root, text="#24", variable=gridPos, value=46)
+Radio25 = Radiobutton(root, text="#25", variable=gridPos, value=48)
 
 # Buttons
 
@@ -156,7 +163,7 @@ f = open("GridCalibrationTable.txt", "w", )
 f.write(str(gridCal.tolist()))
 f.close()
 
-print(gridCal[gridMap[1]])
+print(type(gridCal))
 
 root.mainloop()
 
