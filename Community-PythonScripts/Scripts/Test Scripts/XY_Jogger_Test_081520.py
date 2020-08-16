@@ -60,9 +60,10 @@ def valueWarning():
     mb.showerror("Warning: Galvo Range Exceeded", "I'm sorry, I'm afraid I can't do that.")
 
 def helpAbout():
-	mb.showinfo("About", """The Form 1+ Grid Calibration Tool was created by Photonsters. \n 
-						www.photonsters.org
-						www.openfl.dev
+	mb.showinfo("About", """The Form 1+ Grid Calibration Tool 
+							Created by Photonsters. 
+							www.photonsters.org
+							www.openfl.dev
 						Copyright 2020 Photonsters
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
