@@ -10,30 +10,32 @@ p=Printer.DummyPrinter() #change to Printer.Printer before using
 root = Tk()
 root.title('XY Calibration Tool')
 gridCal = np.ravel(p.read_grid_table())
-
-
 gridPos = IntVar()
 gridPos.set("0")
 
 def backMove():
 	global jogX
-	jogX = gridPos.get() + 1
+	gridCal[gridPos.get()]  = gridCal[gridPos.get()] + 10
+	jogX = gridCal[gridPos.get()]
 	print (jogX)
 
 def leftMove():
-	global jogX
-	jogX = gridPos.get()
-	print (jogX)
+	global jogY
+	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - 10
+	jogY = gridCal[gridPos.get() +1]
+	print (jogY)
 
 def rightMove():
 	global jogY
-	jogY = gridPos.get() + 1
+	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + 10
+	jogY = gridCal[gridPos.get() + 1]
 	print (jogY)
 
 def forwardMove():
-	global jogY
-	jogY = gridPos.get()
-	print (jogY)
+	global jogX
+	gridCal[gridPos.get()]  = gridCal[gridPos.get()] - 10
+	jogX = gridCal[gridPos.get()]
+	print (jogX)
 
 # define buttons
 
