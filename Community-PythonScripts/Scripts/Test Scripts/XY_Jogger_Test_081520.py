@@ -9,6 +9,7 @@ import numpy as np
 #p=Printer.Printer() # Uncomment for real printer
 p=Printer.DummyPrinter() #This is for testing, comment when using real printer
 p.initialize()
+
 root = Tk()
 # name of the Tkinter window:
 root.title('Photonsters Form 1+ Grid Calibration Tool')
@@ -17,7 +18,7 @@ img = Image("photo", file="Photonsters.gif")
 root.tk.call('wm','iconphoto',root._w,img)
 
 # use ravel to flatten the grid table to 1D
-gridCal = np.ravel(p.read_grid_table())
+gridCal = np.ravel(p.read_grid_table())	
 
 #set radio buttons to be integers
 gridPos = IntVar()
@@ -55,9 +56,24 @@ textVar25 = StringVar()
 
 # This section sets up a counter and function for updating the label text
 
+def donothing(): #testing stuff
+   x = 0 #testing stuff
 
 def valueWarning():
     mb.showerror("Warning: Galvo Range Exceeded", "I'm sorry, I'm afraid I can't do that.")
+
+def helpAbout():
+	mb.showinfo("About", """The Form 1+ Grid Calibration Tool was created by Photonsters. \n 
+						www.photonsters.org
+						www.openfl.dev
+						Copyright 2020 Photonsters
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+		                  """)
 	
 
 def backMove():
@@ -183,6 +199,17 @@ def labelUpdate():
 	textVar24.set('x= '+str(gridCal[46])+'\n y= '+(str(gridCal[47])))
 	textVar25.set('x= '+str(gridCal[48])+'\n y= '+(str(gridCal[49])))
 
+#Menus - testing stuff
+menubar = Menu(root)
+filemenu = Menu(menubar, tearoff=0)
+filemenu.add_command(label="Save", command=saveGrid)
+filemenu.add_separator()
+filemenu.add_command(label="Exit", command=root.quit)
+menubar.add_cascade(label="File", menu=filemenu)
+
+helpmenu = Menu(menubar, tearoff=0)
+helpmenu.add_command(label="About...", command=helpAbout)
+menubar.add_cascade(label="Help", menu=helpmenu)
 
 """ 
 
@@ -339,7 +366,7 @@ button_save.grid(row=9, column =5)
 
 # This section sets the text variable of the labels so they dynamically update - Not sure why they don't.
 
-
+root.config(menu=menubar) # testing stuff
 # This is the end of the Tkinter loop
 root.mainloop()
 
