@@ -5,7 +5,8 @@ from OpenFL import Printer, FLP
 import numpy as np
 
 
-p=Printer.DummyPrinter() #change to Printer.Printer before using
+#p=Printer.Printer() # Uncomment for real printer
+p=Printer.DummyPrinter() #This is for testing, comment when using real printer
 root = Tk()
 # name of the Tkinter window:
 root.title('XY Calibration Tool')
