@@ -54,8 +54,9 @@ textVar25 = StringVar()
 
 # This section sets up a counter and function for updating the label text
 
+
 def negativeValueWarning():
-    mb.showerror("Negative Value", "This move results in a negative value \n Physical galvo adjustment is needed.")
+    mb.showerror("Warning: Negative Value", "This move would result in a negative value \n Physical galvo adjustment is needed.")
 
 def backMove():
 	global jogX
@@ -66,14 +67,16 @@ def backMove():
 	Odd numbers (1-49) are Y coordinates (left to right on F1+).
 
 	"""
-	gridCal[gridPos.get()]  = gridCal[gridPos.get()] + tickNumber.get()
-	labelUpdate()
-	jogX = gridCal[gridPos.get()]
-	jogY = gridCal[gridPos.get() + 1]
-	if gridCal[gridPos.get()] < 0:
+	if gridCal[gridPos.get()] + tickNumber.get() < 0:
 		negativeValueWarning()
+	else:
+		gridCal[gridPos.get()]  = gridCal[gridPos.get()] + tickNumber.get()
+		labelUpdate()
+		jogX = gridCal[gridPos.get()]
+		jogY = gridCal[gridPos.get() + 1]
+		
 
-	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
 
 def leftMove():
@@ -85,13 +88,15 @@ def leftMove():
 	Odd numbers (1-49) are Y coordinates (left to right on F1+).
 
 	"""
-	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - tickNumber.get()
-	labelUpdate()
-	jogX = gridCal[gridPos.get()]
-	jogY = gridCal[gridPos.get() + 1]
-	if gridCal[gridPos.get() +1] < 0:
+	if gridCal[gridPos.get() +1] - tickNumber.get() < 0:
 		negativeValueWarning()
-	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	else:
+		gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - tickNumber.get()
+		labelUpdate()
+		jogX = gridCal[gridPos.get()]
+		jogY = gridCal[gridPos.get() + 1]
+			
+		#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
 def rightMove():
@@ -103,13 +108,15 @@ def rightMove():
 	Odd numbers (1-49) are Y coordinates (left to right on F1+).
 
 	"""
-	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + tickNumber.get()
-	labelUpdate()
-	jogX = gridCal[gridPos.get()]
-	jogY = gridCal[gridPos.get() + 1]
-	if gridCal[gridPos.get() + 1] < 0:
+	if gridCal[gridPos.get() +1] + tickNumber.get() < 0:
 		negativeValueWarning()
-	p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	else:
+		gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + tickNumber.get()
+		labelUpdate()
+		jogX = gridCal[gridPos.get()]
+		jogY = gridCal[gridPos.get() + 1]
+		
+		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
 def forwardMove():
@@ -121,12 +128,14 @@ def forwardMove():
 	Odd numbers (1-49) are Y coordinates (left to right on F1+).
 
 	"""
-	gridCal[gridPos.get()]  = gridCal[gridPos.get()] - tickNumber.get()
-	labelUpdate()
-	jogX = gridCal[gridPos.get()]
-	jogY = gridCal[gridPos.get() + 1]
-	if gridCal[gridPos.get()] < 0:
+	if gridCal[gridPos.get()] - tickNumber.get() < 0:
 		negativeValueWarning()
+	else:
+		gridCal[gridPos.get()]  = gridCal[gridPos.get()] - tickNumber.get()
+		labelUpdate()
+		jogX = gridCal[gridPos.get()]
+		jogY = gridCal[gridPos.get() + 1]
+	
 	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
 
