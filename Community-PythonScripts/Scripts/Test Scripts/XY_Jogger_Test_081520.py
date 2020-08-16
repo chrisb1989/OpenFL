@@ -8,36 +8,81 @@ import numpy as np
 
 p=Printer.DummyPrinter() #change to Printer.Printer before using
 root = Tk()
+# name of the Tkinter window:
 root.title('XY Calibration Tool')
+
+# use ravel to flatten the grid table to 1D
 gridCal = np.ravel(p.read_grid_table())
+
+#set radio buttons to be integers
 gridPos = IntVar()
+#set default radio button to be front left position
 gridPos.set("0")
 
 def backMove():
 	global jogX
+	""" 
+	The radio button value is used for slicing the calibration grid.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+)
+
+	"""
 	gridCal[gridPos.get()]  = gridCal[gridPos.get()] + 10
 	jogX = gridCal[gridPos.get()]
 	print (jogX)
 
 def leftMove():
 	global jogY
+	""" 
+	The radio button value is used for slicing the calibration grid.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+)
+
+	"""
 	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - 10
 	jogY = gridCal[gridPos.get() +1]
 	print (jogY)
 
 def rightMove():
 	global jogY
+	""" 
+	The radio button value is used for slicing the calibration grid.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+)
+
+	"""
 	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + 10
 	jogY = gridCal[gridPos.get() + 1]
 	print (jogY)
 
 def forwardMove():
 	global jogX
+	""" 
+	The radio button value is used for slicing the calibration grid.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+)
+
+	"""
 	gridCal[gridPos.get()]  = gridCal[gridPos.get()] - 10
 	jogX = gridCal[gridPos.get()]
 	print (jogX)
 
-# define buttons
+def saveGrid():
+	# create or open a file called GridCalibrationTable.txt in same directory as this script
+	f = open("GridCalibrationTable.txt", "w", )
+	# reshape the calibration grid back to 5x5x2 and save/overwrite the file we just opened
+	f.write(str(np.reshape(gridCal, (5,5,2)).tolist()))
+	f.close()
+
+""" 
+
+This section defines Calibration Point Labels.
+
+The calibration points are arranged from left to right and front to back from 1 to 25.
+
+NOTE: These should dynamically update in the GUI - Need to fix this.
+
+"""
 
 Label01 = Label (root, text=str(gridCal[0]) + " , " + str(gridCal[1]), height = 5, width = 12, relief = "raised")
 Label02 = Label (root, text=str(gridCal[2]) + " , " + str(gridCal[3]), height = 5, width = 12, relief = "raised")
@@ -65,7 +110,7 @@ Label23 = Label (root, text=str(gridCal[44]) + " , " + str(gridCal[45]), height 
 Label24 = Label (root, text=str(gridCal[46]) + " , " + str(gridCal[47]), height = 5, width = 12, relief = "raised")
 Label25 = Label (root, text=str(gridCal[48]) + " , " + str(gridCal[49]), height = 5, width = 12, relief = "raised")
 
-# Radio Buttons
+# Radio Buttons - These are for selecting grid points to edit. 
 
 Radio01 = Radiobutton(root, text="#01", variable=gridPos, value=0)
 Radio02 = Radiobutton(root, text="#02", variable=gridPos, value=2)
@@ -93,15 +138,19 @@ Radio23 = Radiobutton(root, text="#23", variable=gridPos, value=44)
 Radio24 = Radiobutton(root, text="#24", variable=gridPos, value=46)
 Radio25 = Radiobutton(root, text="#25", variable=gridPos, value=48)
 
-# Buttons
+# Increment buttons - these move the laser spot around:
 
 button_back = Button(root, text="Back", padx=50, pady=20, command=backMove)
 button_left = Button(root, text="Left", padx=42, pady=20, command=leftMove)
 button_right = Button(root, text="Right", padx=37, pady=20, command=rightMove)
 button_forward = Button(root, text="Forward", padx=27, pady=20, command=forwardMove)
 
+# Save Button - This button saves the updated grid calibration to a file on your computer
+button_save = Button(root, text="Save", padx=27, pady=20, command=saveGrid)
 
-# Put stuff on the screen
+
+
+# Put stuff on the screen - This section arranges the Tkinter GUI elements on the screen
 
 Label01.grid(row=4, column=1)
 Label02.grid(row=4, column=3)
@@ -159,13 +208,8 @@ button_back.grid(row=6, column=5)
 button_left.grid(row=7, column=3)
 button_right.grid(row=7, column=7)
 button_forward.grid(row=8, column=5)
+button_save.grid(row=9, column =5)
 
-
-f = open("GridCalibrationTable.txt", "w", )
-f.write(str(gridCal.tolist()))
-f.close()
-
-print(type(gridCal))
-
+# This is the end of the Tkinter loop
 root.mainloop()
 
