@@ -10,7 +10,7 @@ import numpy as np
 p=Printer.DummyPrinter() #This is for testing, comment when using real printer
 root = Tk()
 # name of the Tkinter window:
-root.title('XY Calibration Tool')
+root.title('Photonsters Form 1+ Grid Calibration Tool')
 
 # use ravel to flatten the grid table to 1D
 gridCal = np.ravel(p.read_grid_table())
@@ -55,8 +55,8 @@ textVar25 = StringVar()
 # This section sets up a counter and function for updating the label text
 
 
-def negativeValueWarning():
-    mb.showerror("Warning: Negative Value", "This move would result in a negative value \n Physical galvo adjustment is needed.")
+def valueWarning():
+    mb.showerror("Warning: Galvo Range Exceeded", "I'm sorry, I'm afraid I can't do that.")
 
 def backMove():
 	global jogX
@@ -68,7 +68,9 @@ def backMove():
 
 	"""
 	if gridCal[gridPos.get()] + tickNumber.get() < 0:
-		negativeValueWarning()
+		valueWarning()
+	elif gridCal[gridPos.get()] + tickNumber.get() > 65535:
+		valueWarning()
 	else:
 		gridCal[gridPos.get()]  = gridCal[gridPos.get()] + tickNumber.get()
 		labelUpdate()
@@ -89,7 +91,9 @@ def leftMove():
 
 	"""
 	if gridCal[gridPos.get() +1] - tickNumber.get() < 0:
-		negativeValueWarning()
+		valueWarning()
+	elif gridCal[gridPos.get() +1] + tickNumber.get() > 65535:
+		valueWarning()
 	else:
 		gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - tickNumber.get()
 		labelUpdate()
@@ -109,7 +113,9 @@ def rightMove():
 
 	"""
 	if gridCal[gridPos.get() +1] + tickNumber.get() < 0:
-		negativeValueWarning()
+		valueWarning()
+	elif gridCal[gridPos.get() +1] + tickNumber.get() > 65535:
+		valueWarning()
 	else:
 		gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + tickNumber.get()
 		labelUpdate()
@@ -129,7 +135,9 @@ def forwardMove():
 
 	"""
 	if gridCal[gridPos.get()] - tickNumber.get() < 0:
-		negativeValueWarning()
+		valueWarning()
+	elif gridCal[gridPos.get()] + tickNumber.get() > 65535:
+		valueWarning()
 	else:
 		gridCal[gridPos.get()]  = gridCal[gridPos.get()] - tickNumber.get()
 		labelUpdate()
