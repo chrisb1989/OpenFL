@@ -76,9 +76,7 @@ def backMove():
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		
-
-		#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
 
 def leftMove():
@@ -99,8 +97,7 @@ def leftMove():
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-			
-		#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
 def rightMove():
@@ -121,7 +118,6 @@ def rightMove():
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		
 		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
@@ -143,8 +139,7 @@ def forwardMove():
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-	
-	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
 
 def saveGrid():
@@ -340,4 +335,6 @@ button_save.grid(row=9, column =5)
 
 # This is the end of the Tkinter loop
 root.mainloop()
+p.shutdown()
+exit()
 
