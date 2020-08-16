@@ -41,3 +41,6 @@
 
 5) FLPtoPC.py
 * This script copies all FLP blocks on your SD card to a folder on your local PC. The script will create two directories in your current working directory (location of the script file). There will be a folder named blocks, and inside of that folder will be a directory named for the current date/time, your FLP files will be located in this folder.
+
+6) TheGridCalibrationTool.py
+* This script enables you to create a grid calibration table. You currently will need to download your F1+ firmware via JTAG and modify it with the resulting grid calibraiotn table. This is a tool for advanced or experimental users who are familiar with hex editing (or who are willing to learn).
