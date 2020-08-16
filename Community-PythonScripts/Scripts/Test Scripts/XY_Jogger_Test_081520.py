@@ -9,7 +9,7 @@ import numpy as np
 p=Printer.DummyPrinter() #change to Printer.Printer before using
 root = Tk()
 root.title('XY Calibration Tool')
-gridCal = copy.deepcopy(p.read_grid_table())
+gridCal = np.ravel(p.read_grid_table())
 test = IntVar()
 test.set("1")
 
