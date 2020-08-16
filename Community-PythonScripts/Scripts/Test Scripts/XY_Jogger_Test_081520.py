@@ -22,75 +22,6 @@ gridPos.set("0")
 tickNumber = IntVar()
 tickNumber.set("10")
 
-# This section sets up a counter and function for updating the label text
-
-def backMove():
-	global jogX
-	global jogY
-	""" 
-	The radio button value is used for selecting the calibration grid point to edit.
-	Even numbers (0-48) are X coordinates (front to back on F1+),
-	Odd numbers (1-49) are Y coordinates (left to right on F1+).
-
-	"""
-	gridCal[gridPos.get()]  = gridCal[gridPos.get()] + tickNumber.get()
-	jogX = gridCal[gridPos.get()]
-	jogY = gridCal[gridPos.get() + 1]
-	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
-	print (jogX)
-
-def leftMove():
-	global jogX
-	global jogY
-	""" 
-	The radio button value is used for selecting the calibration grid point to edit.
-	Even numbers (0-48) are X coordinates (front to back on F1+),
-	Odd numbers (1-49) are Y coordinates (left to right on F1+).
-
-	"""
-	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - tickNumber.get()
-	jogX = gridCal[gridPos.get()]
-	jogY = gridCal[gridPos.get() + 1]
-	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
-	print (jogY)
-
-def rightMove():
-	global jogX
-	global jogY
-	""" 
-	The radio button value is used for selecting the calibration grid point to edit.
-	Even numbers (0-48) are X coordinates (front to back on F1+),
-	Odd numbers (1-49) are Y coordinates (left to right on F1+).
-
-	"""
-	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + tickNumber.get()
-	jogX = gridCal[gridPos.get()]
-	jogY = gridCal[gridPos.get() + 1]
-	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
-	print (jogY)
-
-def forwardMove():
-	global jogX
-	global jogY
-	""" 
-	The radio button value is used for selecting the calibration grid point to edit.
-	Even numbers (0-48) are X coordinates (front to back on F1+),
-	Odd numbers (1-49) are Y coordinates (left to right on F1+).
-
-	"""
-	gridCal[gridPos.get()]  = gridCal[gridPos.get()] - tickNumber.get()
-	jogX = gridCal[gridPos.get()]
-	jogY = gridCal[gridPos.get() + 1]
-	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
-	print (jogX)
-
-def saveGrid():
-	# create or open a file called GridCalibrationTable.txt in same directory as this script
-	f = open("GridCalibrationTable.txt", "w", )
-	# reshape the calibration grid back to 5x5x2 and save/overwrite the file we just opened
-	f.write(str(np.reshape(gridCal, (5,5,2)).tolist()))
-	f.close()
-
 """
 This section is a list of variables used for dynamically updating the label text of the grid points
 """
@@ -119,6 +50,109 @@ textVar22 = StringVar()
 textVar23 = StringVar()
 textVar24 = StringVar()
 textVar25 = StringVar()
+
+# This section sets up a counter and function for updating the label text
+
+def backMove():
+	global jogX
+	global jogY
+	""" 
+	The radio button value is used for selecting the calibration grid point to edit.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
+
+	"""
+	gridCal[gridPos.get()]  = gridCal[gridPos.get()] + tickNumber.get()
+	labelUpdate()
+	jogX = gridCal[gridPos.get()]
+	jogY = gridCal[gridPos.get() + 1]
+
+	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	print (jogX)
+
+def leftMove():
+	global jogX
+	global jogY
+	""" 
+	The radio button value is used for selecting the calibration grid point to edit.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
+
+	"""
+	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - tickNumber.get()
+	labelUpdate()
+	jogX = gridCal[gridPos.get()]
+	jogY = gridCal[gridPos.get() + 1]
+	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	print (jogY)
+
+def rightMove():
+	global jogX
+	global jogY
+	""" 
+	The radio button value is used for selecting the calibration grid point to edit.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
+
+	"""
+	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + tickNumber.get()
+	labelUpdate()
+	jogX = gridCal[gridPos.get()]
+	jogY = gridCal[gridPos.get() + 1]
+	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	print (jogY)
+
+def forwardMove():
+	global jogX
+	global jogY
+	""" 
+	The radio button value is used for selecting the calibration grid point to edit.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
+
+	"""
+	gridCal[gridPos.get()]  = gridCal[gridPos.get()] - tickNumber.get()
+	labelUpdate()
+	jogX = gridCal[gridPos.get()]
+	jogY = gridCal[gridPos.get() + 1]
+	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	print (jogX)
+
+def saveGrid():
+	# create or open a file called GridCalibrationTable.txt in same directory as this script
+	f = open("GridCalibrationTable.txt", "w", )
+	# reshape the calibration grid back to 5x5x2 and save/overwrite the file we just opened
+	f.write(str(np.reshape(gridCal, (5,5,2)).tolist()))
+	f.close()
+
+def labelUpdate():
+	textVar01.set('x= '+str(gridCal[0])+'\n y= '+(str(gridCal[1])))
+	textVar02.set('x= '+str(gridCal[2])+'\n y= '+(str(gridCal[3])))
+	textVar03.set('x= '+str(gridCal[4])+'\n y= '+(str(gridCal[5])))
+	textVar04.set('x= '+str(gridCal[6])+'\n y= '+(str(gridCal[7])))
+	textVar05.set('x= '+str(gridCal[8])+'\n y= '+(str(gridCal[9])))
+	textVar06.set('x= '+str(gridCal[10])+'\n y= '+(str(gridCal[11])))
+	textVar07.set('x= '+str(gridCal[12])+'\n y= '+(str(gridCal[13])))
+	textVar08.set('x= '+str(gridCal[14])+'\n y= '+(str(gridCal[14])))
+	textVar09.set('x= '+str(gridCal[16])+'\n y= '+(str(gridCal[17])))
+	textVar10.set('x= '+str(gridCal[18])+'\n y= '+(str(gridCal[19])))
+	textVar11.set('x= '+str(gridCal[20])+'\n y= '+(str(gridCal[21])))
+	textVar12.set('x= '+str(gridCal[22])+'\n y= '+(str(gridCal[23])))
+	textVar13.set('x= '+str(gridCal[24])+'\n y= '+(str(gridCal[25])))
+	textVar14.set('x= '+str(gridCal[26])+'\n y= '+(str(gridCal[27])))
+	textVar15.set('x= '+str(gridCal[28])+'\n y= '+(str(gridCal[29])))
+	textVar16.set('x= '+str(gridCal[30])+'\n y= '+(str(gridCal[31])))
+	textVar17.set('x= '+str(gridCal[32])+'\n y= '+(str(gridCal[33])))
+	textVar18.set('x= '+str(gridCal[34])+'\n y= '+(str(gridCal[25])))
+	textVar19.set('x= '+str(gridCal[36])+'\n y= '+(str(gridCal[37])))
+	textVar20.set('x= '+str(gridCal[38])+'\n y= '+(str(gridCal[39])))
+	textVar21.set('x= '+str(gridCal[40])+'\n y= '+(str(gridCal[41])))
+	textVar22.set('x= '+str(gridCal[42])+'\n y= '+(str(gridCal[43])))
+	textVar23.set('x= '+str(gridCal[44])+'\n y= '+(str(gridCal[45])))
+	textVar24.set('x= '+str(gridCal[46])+'\n y= '+(str(gridCal[47])))
+	textVar25.set('x= '+str(gridCal[48])+'\n y= '+(str(gridCal[49])))
+
+
 """ 
 
 This section defines Calibration Point Labels.
@@ -128,6 +162,8 @@ The calibration points are arranged from left to right and front to back from 1 
 NOTE: These should dynamically update in the GUI - Need to fix this.
 
 """
+
+labelUpdate()
 
 Label01 = Label (root, textvariable=textVar01, height = 5, width = 12, relief = "raised")
 Label02 = Label (root, textvariable=textVar02, height = 5, width = 12, relief = "raised")
@@ -266,32 +302,8 @@ button_right.grid(row=7, column=7)
 button_forward.grid(row=8, column=5)
 button_save.grid(row=9, column =5)
 
-# This section sets the text variable of the labels so they dynamically update
-textVar01.set('x= '+str(gridCal[0])+'\n y= '+(str(gridCal[1])))
-textVar02.set('x= '+str(gridCal[2])+'\n y= '+(str(gridCal[3])))
-textVar03.set('x= '+str(gridCal[4])+'\n y= '+(str(gridCal[5])))
-textVar04.set('x= '+str(gridCal[6])+'\n y= '+(str(gridCal[7])))
-textVar05.set('x= '+str(gridCal[8])+'\n y= '+(str(gridCal[9])))
-textVar06.set('x= '+str(gridCal[10])+'\n y= '+(str(gridCal[11])))
-textVar07.set('x= '+str(gridCal[12])+'\n y= '+(str(gridCal[13])))
-textVar08.set('x= '+str(gridCal[14])+'\n y= '+(str(gridCal[14])))
-textVar09.set('x= '+str(gridCal[16])+'\n y= '+(str(gridCal[17])))
-textVar10.set('x= '+str(gridCal[18])+'\n y= '+(str(gridCal[19])))
-textVar11.set('x= '+str(gridCal[20])+'\n y= '+(str(gridCal[21])))
-textVar12.set('x= '+str(gridCal[22])+'\n y= '+(str(gridCal[23])))
-textVar13.set('x= '+str(gridCal[24])+'\n y= '+(str(gridCal[25])))
-textVar14.set('x= '+str(gridCal[26])+'\n y= '+(str(gridCal[27])))
-textVar15.set('x= '+str(gridCal[28])+'\n y= '+(str(gridCal[29])))
-textVar16.set('x= '+str(gridCal[30])+'\n y= '+(str(gridCal[31])))
-textVar17.set('x= '+str(gridCal[32])+'\n y= '+(str(gridCal[33])))
-textVar18.set('x= '+str(gridCal[34])+'\n y= '+(str(gridCal[25])))
-textVar19.set('x= '+str(gridCal[36])+'\n y= '+(str(gridCal[37])))
-textVar20.set('x= '+str(gridCal[38])+'\n y= '+(str(gridCal[39])))
-textVar21.set('x= '+str(gridCal[40])+'\n y= '+(str(gridCal[41])))
-textVar22.set('x= '+str(gridCal[42])+'\n y= '+(str(gridCal[43])))
-textVar23.set('x= '+str(gridCal[44])+'\n y= '+(str(gridCal[45])))
-textVar24.set('x= '+str(gridCal[46])+'\n y= '+(str(gridCal[47])))
-textVar25.set('x= '+str(gridCal[48])+'\n y= '+(str(gridCal[49])))
+# This section sets the text variable of the labels so they dynamically update - Not sure why they don't.
+
 
 # This is the end of the Tkinter loop
 root.mainloop()
