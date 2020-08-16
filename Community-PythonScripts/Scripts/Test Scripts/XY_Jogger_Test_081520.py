@@ -20,7 +20,7 @@ gridPos = IntVar()
 gridPos.set("0")
 
 tickNumber = IntVar()
-tickNumber.set("10")
+tickNumber.set("100")
 
 """
 This section is a list of variables used for dynamically updating the label text of the grid points
@@ -99,7 +99,7 @@ def rightMove():
 	labelUpdate()
 	jogX = gridCal[gridPos.get()]
 	jogY = gridCal[gridPos.get() + 1]
-	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
 def forwardMove():
@@ -121,7 +121,7 @@ def forwardMove():
 def saveGrid():
 	# create or open a file called GridCalibrationTable.txt in same directory as this script
 	f = open("GridCalibrationTable.txt", "w", )
-	# reshape the calibration grid back to 5x5x2 and save/overwrite the file we just opened
+	# reshape the calibration grid array back to 5x5x2 and save/overwrite the file we just opened
 	f.write(str(np.reshape(gridCal, (5,5,2)).tolist()))
 	f.close()
 
@@ -225,6 +225,7 @@ Radio25 = Radiobutton(root, text="#25", variable=gridPos, value=48)
 RadioTick001 = Radiobutton(root, text="1 tick", variable=tickNumber, value=1)
 RadioTick010 = Radiobutton(root, text="10 ticks", variable=tickNumber, value=10)
 RadioTick100 = Radiobutton(root, text="100 ticks", variable=tickNumber, value=100)
+RadioTick200 = Radiobutton(root, text="200 ticks", variable=tickNumber, value=200)
 
 # Increment buttons - these move the laser spot around:
 
@@ -296,6 +297,7 @@ Radio25.grid(row=0, column=8)
 RadioTick001.grid(row=6, column=1)
 RadioTick010.grid(row=7, column=1)
 RadioTick100.grid(row=8, column=1)
+RadioTick200.grid(row=9, column=1)
 
 # button arrangement
 button_back.grid(row=6, column=5)
