@@ -141,6 +141,9 @@ def forwardMove():
 		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
 
+def laserOn():
+	p.set_laser_uint16(gridCal[gridPos.get()], gridCal[gridPos.get() +1])
+
 def saveGrid():
 	# create or open a file called GridCalibrationTable.txt in same directory as this script
 	f = open("GridCalibrationTable.txt", "w", )
@@ -256,6 +259,7 @@ button_back = Button(root, text="X +", padx=27, pady=20, command=backMove)
 button_left = Button(root, text="Y -", padx=27, pady=20, command=leftMove)
 button_right = Button(root, text="Y +", padx=27, pady=20, command=rightMove)
 button_forward = Button(root, text="X -", padx=27, pady=20, command=forwardMove)
+button_laser = Button(root, text="Laser On", padx=27, pady=20, command=laserOn)
 
 # Save Button - This button saves the updated grid calibration to a file on your computer
 button_save = Button(root, text="Save", padx=27, pady=20, command=saveGrid)
@@ -325,6 +329,7 @@ RadioTick200.grid(row=9, column=1)
 # button arrangement
 button_back.grid(row=6, column=5)
 button_left.grid(row=7, column=3)
+button_laser.grid(row=7, column=5)
 button_right.grid(row=7, column=7)
 button_forward.grid(row=8, column=5)
 button_save.grid(row=9, column =5)
