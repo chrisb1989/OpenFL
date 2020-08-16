@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from Tkinter import *
+import tkMessageBox as mb
 from OpenFL import Printer, FLP
 import numpy as np
 
@@ -53,6 +54,9 @@ textVar25 = StringVar()
 
 # This section sets up a counter and function for updating the label text
 
+def negativeValueWarning():
+    mb.showerror("Negative Value", "This move results in a negative value \n Physical galvo adjustment is needed.")
+
 def backMove():
 	global jogX
 	global jogY
@@ -66,6 +70,8 @@ def backMove():
 	labelUpdate()
 	jogX = gridCal[gridPos.get()]
 	jogY = gridCal[gridPos.get() + 1]
+	if gridCal[gridPos.get()] < 0:
+		negativeValueWarning()
 
 	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
@@ -83,6 +89,8 @@ def leftMove():
 	labelUpdate()
 	jogX = gridCal[gridPos.get()]
 	jogY = gridCal[gridPos.get() + 1]
+	if gridCal[gridPos.get() +1] < 0:
+		negativeValueWarning()
 	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
@@ -99,6 +107,8 @@ def rightMove():
 	labelUpdate()
 	jogX = gridCal[gridPos.get()]
 	jogY = gridCal[gridPos.get() + 1]
+	if gridCal[gridPos.get() + 1] < 0:
+		negativeValueWarning()
 	p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
@@ -115,6 +125,8 @@ def forwardMove():
 	labelUpdate()
 	jogX = gridCal[gridPos.get()]
 	jogY = gridCal[gridPos.get() + 1]
+	if gridCal[gridPos.get()] < 0:
+		negativeValueWarning()
 	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
 
