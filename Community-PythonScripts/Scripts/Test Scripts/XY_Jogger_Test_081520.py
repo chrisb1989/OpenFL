@@ -6,8 +6,9 @@ from OpenFL import Printer, FLP
 import numpy as np
 
 
-#p=Printer.Printer() # Uncomment for real printer
-p=Printer.DummyPrinter() #This is for testing, comment when using real printer
+p=Printer.Printer() # Uncomment for real printer
+p.initialize()
+#p=Printer.DummyPrinter() #This is for testing, comment when using real printer
 root = Tk()
 # name of the Tkinter window:
 root.title('Photonsters Form 1+ Grid Calibration Tool')
