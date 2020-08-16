@@ -95,7 +95,50 @@ def backMove():
 		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
 
+def backMoveKey(event):
+	global jogX
+	global jogY
+	""" 
+	The radio button value is used for selecting the calibration grid point to edit.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
+
+	"""
+	if gridCal[gridPos.get()] + tickNumber.get() < 0:
+		valueWarning()
+	elif gridCal[gridPos.get()] + tickNumber.get() > 65535:
+		valueWarning()
+	else:
+		gridCal[gridPos.get()]  = gridCal[gridPos.get()] + tickNumber.get()
+		labelUpdate()
+		jogX = gridCal[gridPos.get()]
+		jogY = gridCal[gridPos.get() + 1]
+		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	print (jogX)
+
+
 def leftMove():
+	global jogX
+	global jogY
+	""" 
+	The radio button value is used for selecting the calibration grid point to edit.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
+
+	"""
+	if gridCal[gridPos.get() +1] - tickNumber.get() < 0:
+		valueWarning()
+	elif gridCal[gridPos.get() +1] + tickNumber.get() > 65535:
+		valueWarning()
+	else:
+		gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - tickNumber.get()
+		labelUpdate()
+		jogX = gridCal[gridPos.get()]
+		jogY = gridCal[gridPos.get() + 1]
+		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	print (jogY)
+
+def leftMoveKey(event):
 	global jogX
 	global jogY
 	""" 
@@ -137,7 +180,49 @@ def rightMove():
 		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
+def rightMoveKey(event):
+	global jogX
+	global jogY
+	""" 
+	The radio button value is used for selecting the calibration grid point to edit.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
+
+	"""
+	if gridCal[gridPos.get() +1] + tickNumber.get() < 0:
+		valueWarning()
+	elif gridCal[gridPos.get() +1] + tickNumber.get() > 65535:
+		valueWarning()
+	else:
+		gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + tickNumber.get()
+		labelUpdate()
+		jogX = gridCal[gridPos.get()]
+		jogY = gridCal[gridPos.get() + 1]
+		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	print (jogY)
+
 def forwardMove():
+	global jogX
+	global jogY
+	""" 
+	The radio button value is used for selecting the calibration grid point to edit.
+	Even numbers (0-48) are X coordinates (front to back on F1+),
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
+
+	"""
+	if gridCal[gridPos.get()] - tickNumber.get() < 0:
+		valueWarning()
+	elif gridCal[gridPos.get()] + tickNumber.get() > 65535:
+		valueWarning()
+	else:
+		gridCal[gridPos.get()]  = gridCal[gridPos.get()] - tickNumber.get()
+		labelUpdate()
+		jogX = gridCal[gridPos.get()]
+		jogY = gridCal[gridPos.get() + 1]
+		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+	print (jogX)
+
+def forwardMoveKey(event):
 	global jogX
 	global jogY
 	""" 
@@ -196,6 +281,14 @@ def labelUpdate():
 	textVar23.set('x= '+str(gridCal[44])+'\n y= '+(str(gridCal[45])))
 	textVar24.set('x= '+str(gridCal[46])+'\n y= '+(str(gridCal[47])))
 	textVar25.set('x= '+str(gridCal[48])+'\n y= '+(str(gridCal[49])))
+
+# Key binding - still testing this
+
+root.bind('<Up>', backMoveKey)
+root.bind('<Left>', leftMoveKey)
+root.bind('<Right>', rightMoveKey)
+root.bind('<Down>', forwardMoveKey)
+
 
 #Menus - still testing this stuff
 menubar = Menu(root)
