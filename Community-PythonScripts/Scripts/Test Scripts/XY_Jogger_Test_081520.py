@@ -19,52 +19,67 @@ gridPos = IntVar()
 #set default radio button to be front left position
 gridPos.set("0")
 
+tickNumber = IntVar()
+tickNumber.set("10")
+
 def backMove():
 	global jogX
+	global jogY
 	""" 
-	The radio button value is used for slicing the calibration grid.
+	The radio button value is used for selecting the calibration grid point to edit.
 	Even numbers (0-48) are X coordinates (front to back on F1+),
-	Odd numbers (1-49) are Y coordinates (left to right on F1+)
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
 
 	"""
-	gridCal[gridPos.get()]  = gridCal[gridPos.get()] + 10
+	gridCal[gridPos.get()]  = gridCal[gridPos.get()] + tickNumber.get()
 	jogX = gridCal[gridPos.get()]
+	jogY = gridCal[gridPos.get() + 1]
+	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
 
 def leftMove():
+	global jogX
 	global jogY
 	""" 
-	The radio button value is used for slicing the calibration grid.
+	The radio button value is used for selecting the calibration grid point to edit.
 	Even numbers (0-48) are X coordinates (front to back on F1+),
-	Odd numbers (1-49) are Y coordinates (left to right on F1+)
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
 
 	"""
-	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - 10
-	jogY = gridCal[gridPos.get() +1]
+	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] - tickNumber.get()
+	jogX = gridCal[gridPos.get()]
+	jogY = gridCal[gridPos.get() + 1]
+	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
 def rightMove():
+	global jogX
 	global jogY
 	""" 
-	The radio button value is used for slicing the calibration grid.
+	The radio button value is used for selecting the calibration grid point to edit.
 	Even numbers (0-48) are X coordinates (front to back on F1+),
-	Odd numbers (1-49) are Y coordinates (left to right on F1+)
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
 
 	"""
-	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + 10
+	gridCal[gridPos.get() +1]  = gridCal[gridPos.get() +1] + tickNumber.get()
+	jogX = gridCal[gridPos.get()]
 	jogY = gridCal[gridPos.get() + 1]
+	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogY)
 
 def forwardMove():
 	global jogX
+	global jogY
 	""" 
-	The radio button value is used for slicing the calibration grid.
+	The radio button value is used for selecting the calibration grid point to edit.
 	Even numbers (0-48) are X coordinates (front to back on F1+),
-	Odd numbers (1-49) are Y coordinates (left to right on F1+)
+	Odd numbers (1-49) are Y coordinates (left to right on F1+).
 
 	"""
-	gridCal[gridPos.get()]  = gridCal[gridPos.get()] - 10
+	gridCal[gridPos.get()]  = gridCal[gridPos.get()] - tickNumber.get()
 	jogX = gridCal[gridPos.get()]
+	jogY = gridCal[gridPos.get() + 1]
+	#p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
 	print (jogX)
 
 def saveGrid():
@@ -110,7 +125,7 @@ Label23 = Label (root, text=str(gridCal[44]) + " , " + str(gridCal[45]), height 
 Label24 = Label (root, text=str(gridCal[46]) + " , " + str(gridCal[47]), height = 5, width = 12, relief = "raised")
 Label25 = Label (root, text=str(gridCal[48]) + " , " + str(gridCal[49]), height = 5, width = 12, relief = "raised")
 
-# Radio Buttons - These are for selecting grid points to edit. 
+# Grid point radio buttons - These are for selecting a grid point to edit. 
 
 Radio01 = Radiobutton(root, text="#01", variable=gridPos, value=0)
 Radio02 = Radiobutton(root, text="#02", variable=gridPos, value=2)
@@ -137,6 +152,11 @@ Radio22 = Radiobutton(root, text="#22", variable=gridPos, value=42)
 Radio23 = Radiobutton(root, text="#23", variable=gridPos, value=44)
 Radio24 = Radiobutton(root, text="#24", variable=gridPos, value=46)
 Radio25 = Radiobutton(root, text="#25", variable=gridPos, value=48)
+
+# Increment value radio buttons - these define the number of ticks the buttons will increment by:
+RadioTick001 = Radiobutton(root, text="1 tick", variable=tickNumber, value=1)
+RadioTick010 = Radiobutton(root, text="10 ticks", variable=tickNumber, value=10)
+RadioTick100 = Radiobutton(root, text="100 ticks", variable=tickNumber, value=100)
 
 # Increment buttons - these move the laser spot around:
 
@@ -203,6 +223,10 @@ Radio22.grid(row=0, column=2)
 Radio23.grid(row=0, column=4)
 Radio24.grid(row=0, column=6)
 Radio25.grid(row=0, column=8)
+RadioTick001.grid(row=6, column=1)
+RadioTick010.grid(row=7, column=1)
+RadioTick100.grid(row=8, column=1)
+
 
 button_back.grid(row=6, column=5)
 button_left.grid(row=7, column=3)
