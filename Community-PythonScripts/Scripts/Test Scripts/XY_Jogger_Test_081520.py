@@ -18,9 +18,6 @@ gridCal = np.ravel(p.read_grid_table())
 
 #set radio buttons to be integers
 gridPos = IntVar()
-#set default radio button to be front left position
-gridPos.set("0")
-
 tickNumber = IntVar()
 tickNumber.set("100")
 
@@ -58,6 +55,7 @@ textVar25 = StringVar()
 
 def valueWarning():
     mb.showerror("Warning: Galvo Range Exceeded", "I'm sorry, I'm afraid I can't do that.")
+	
 
 def backMove():
 	global jogX
@@ -336,6 +334,6 @@ button_save.grid(row=9, column =5)
 
 # This is the end of the Tkinter loop
 root.mainloop()
+
 p.shutdown()
-exit()
 
