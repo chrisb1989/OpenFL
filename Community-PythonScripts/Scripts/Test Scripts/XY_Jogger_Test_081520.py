@@ -125,6 +125,8 @@ def saveGrid():
 	f.write(str(np.reshape(gridCal, (5,5,2)).tolist()))
 	f.close()
 
+# This function sets the text variables for the labels
+
 def labelUpdate():
 	textVar01.set('x= '+str(gridCal[0])+'\n y= '+(str(gridCal[1])))
 	textVar02.set('x= '+str(gridCal[2])+'\n y= '+(str(gridCal[3])))
@@ -163,7 +165,7 @@ NOTE: These should dynamically update in the GUI - Need to fix this.
 
 """
 
-labelUpdate()
+labelUpdate() # Update the labels so they aren't blank when script starts.
 
 Label01 = Label (root, textvariable=textVar01, height = 5, width = 12, relief = "raised")
 Label02 = Label (root, textvariable=textVar02, height = 5, width = 12, relief = "raised")
