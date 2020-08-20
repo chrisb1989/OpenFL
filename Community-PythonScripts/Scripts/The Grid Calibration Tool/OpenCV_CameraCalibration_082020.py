@@ -29,11 +29,8 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # show the grayscale image feed (for testing)
     #cv2.imshow('gray', gray)
-    
-
     # # Find the chess board corners
     ret, corners = cv2.findChessboardCorners(gray, (9,6),None)
-
     # # If found, add object points, image points (after refining them)
     if ret == True:
         objpoints.append(objp)
@@ -46,8 +43,8 @@ while True:
         cv2.imshow('frame', frame)
         # calibration:
         cv2.waitKey(0)
-    ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, frame.shape[::-1], None, None)
-    #h,  w = frame.shape[:2]
+		ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, frame.shape[::-1], None, None)
+		#h,  w = frame.shape[:2]
 
 
 
