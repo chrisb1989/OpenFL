@@ -1,6 +1,20 @@
-import numpy as np
-import cv2
+# import the necessary packages
+from imutils.video import VideoStream
+import datetime
+import argparse
+import imutils
 import time
+import cv2
+import numpy as np
+
+# construct the argument parse and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-p", "--picamera", type=int, default=-1,
+	help="whether or not the Raspberry Pi camera should be used")
+args = vars(ap.parse_args())
+# initialize the video stream and allow the cammera sensor to warmup
+vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+time.sleep(2.0)
 
 # termination criteria
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -13,11 +27,9 @@ objp[:,:2] = np.mgrid[0:9,0:6].T.reshape(-1,2)
 objpoints = [] # 3d point in real world space
 imgpoints = [] # 2d points in image plane.
 
-# This is the rtsp stream capture
-cap = cv2.VideoCapture("rtsp://laser:laser@192.168.86.24/live")
-
+# loop over the frames from the video stream
 while True:
-	ret, frame = cap.read()
+	frame = vs.read()
 	# convert from BGR color to grayscale:
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 	# show the grayscale image feed (for testing)
@@ -44,13 +56,14 @@ while True:
 		dst = cv2.remap(img,mapx,mapy,cv2.INTER_LINEAR)
 
 		# crop the image
-		x,y,w,h = roi
-		dst = dst[y:y+h, x:x+w]
+		#x,y,w,h = roi
+		#dst = dst[y:y+h, x:x+w]
 		cv2.imshow('dst', dst)
 		time.sleep(.1)
 
 	# break the while loop if user presses 'q' key
 	if cv2.waitKey(1000) & 0xFF == ord('q'):
 		break
-cap.release()
+# do a bit of cleanup
 cv2.destroyAllWindows()
+vs.stop()
