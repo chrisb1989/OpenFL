@@ -36,10 +36,9 @@ while True:
 		cv2.waitKey(0)
 		ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, frame.shape[::-1], None, None)
 		#h,  w = frame.shape[:2]
-		
+
 	# break the while loop if user presses 'q' key
 	if cv2.waitKey(1000) & 0xFF == ord('q'):
 		break
 cap.release()
 cv2.destroyAllWindows()
-
