@@ -30,16 +30,16 @@ while True:
 		cv2.cornerSubPix(gray,corners,(11,11),(-1,-1),criteria)
 		imgpoints.append(corners)
 		# Draw and display the corners
-		cv2.drawChessboardCorners(frame, (9,6), corners,ret)
-		cv2.imshow('frame', frame)
+		cv2.drawChessboardCorners(gray, (9,6), corners,ret)
+		# cv2.imshow('frame', frame)
 		# calibration
 		cv2.waitKey(0)
-		ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, frame.shape[::-1], None, None)
+		ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 		cv2.waitKey(0)
-		h,  w = frame.shape[:2]
+		h,  w = gray.shape[:2]
 		newcameramtx, roi=cv2.getOptimalNewCameraMatrix(mtx,dist,(w,h),1,(w,h))
 		# undistort
-		dst = cv2.undistort(frame, mtx, dist, None, newcameramtx)
+		dst = cv2.undistort(gray, mtx, dist, None, newcameramtx)
 		# crop the image
 		x,y,w,h = roi
 		dst = dst[y:y+h, x:x+w]
