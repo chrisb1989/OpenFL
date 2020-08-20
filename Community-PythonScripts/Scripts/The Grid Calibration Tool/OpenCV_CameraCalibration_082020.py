@@ -49,6 +49,7 @@ while True:
     # break the while loop if user presses 'q' key
     if cv2.waitKey(1) & 0xFF == ord('q'):
     	break
+    	time.sleep(1)
 
 cap.release()
 cv2.destroyAllWindows()
