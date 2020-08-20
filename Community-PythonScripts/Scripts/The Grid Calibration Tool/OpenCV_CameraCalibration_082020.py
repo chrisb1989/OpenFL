@@ -27,10 +27,8 @@ while True:
 	# # If found, add object points, image points (after refining them)
 	if ret == True:
 		objpoints.append(objp)
-
 		cv2.cornerSubPix(gray,corners,(11,11),(-1,-1),criteria)
 		imgpoints.append(corners)
-
 		# Draw and display the corners
 		cv2.drawChessboardCorners(frame, (9,6), corners,ret)
 		cv2.imshow('frame', frame)
@@ -38,11 +36,10 @@ while True:
 		cv2.waitKey(0)
 		ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, frame.shape[::-1], None, None)
 		#h,  w = frame.shape[:2]
-
+		
 	# break the while loop if user presses 'q' key
 	if cv2.waitKey(1000) & 0xFF == ord('q'):
 		break
-
 cap.release()
 cv2.destroyAllWindows()
 
