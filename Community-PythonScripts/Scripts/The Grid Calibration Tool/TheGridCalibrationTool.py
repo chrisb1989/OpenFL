@@ -6,8 +6,8 @@ from OpenFL import Printer, FLP
 import numpy as np
 
 
-#p=Printer.Printer() # Uncomment for real printer
-p=Printer.DummyPrinter() #This is for testing, comment when using real printer
+p=Printer.Printer() # Uncomment for real printer
+#p=Printer.DummyPrinter() #This is for testing, comment when using real printer
 p.initialize()
 
 root = Tk()
@@ -92,7 +92,7 @@ def backMove():
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY, power=laserPower) #uncomment for use with printer
 	print (jogX)
 
 def backMoveKey(event):
@@ -113,7 +113,7 @@ def backMoveKey(event):
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY, power=laserPower) #uncomment for use with printer
 	print (jogX)
 
 
@@ -135,7 +135,7 @@ def leftMove():
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY, power=laserPower) #uncomment for use with printer
 	print (jogY)
 
 def leftMoveKey(event):
@@ -156,7 +156,7 @@ def leftMoveKey(event):
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY, power=laserPower) #uncomment for use with printer
 	print (jogY)
 
 def rightMove():
@@ -177,7 +177,7 @@ def rightMove():
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY, power=laserPower) #uncomment for use with printer
 	print (jogY)
 
 def rightMoveKey(event):
@@ -198,7 +198,7 @@ def rightMoveKey(event):
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY, power=laserPower) #uncomment for use with printer
 	print (jogY)
 
 def forwardMove():
@@ -219,7 +219,7 @@ def forwardMove():
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY, power=laserPower) #uncomment for use with printer
 	print (jogX)
 
 def forwardMoveKey(event):
@@ -240,11 +240,11 @@ def forwardMoveKey(event):
 		labelUpdate()
 		jogX = gridCal[gridPos.get()]
 		jogY = gridCal[gridPos.get() + 1]
-		p.set_laser_uint16(jogX, jogY) #uncomment for use with printer
+		p.set_laser_uint16(jogX, jogY, power=laserPower) #uncomment for use with printer
 	print (jogX)
 
 def laserOn():
-	p.set_laser_uint16(gridCal[gridPos.get()], gridCal[gridPos.get() +1])
+	p.set_laser_uint16(gridCal[gridPos.get()], gridCal[gridPos.get() +1], power=laserPower)
 
 def saveGrid():
 	# create or open a file called GridCalibrationTable.txt in same directory as this script
@@ -281,6 +281,9 @@ def labelUpdate():
 	textVar23.set('x= '+str(gridCal[44])+'\n y= '+(str(gridCal[45])))
 	textVar24.set('x= '+str(gridCal[46])+'\n y= '+(str(gridCal[47])))
 	textVar25.set('x= '+str(gridCal[48])+'\n y= '+(str(gridCal[49])))
+
+# Laser power setter
+laserPower = 12500
 
 # Key binding - still testing this
 
