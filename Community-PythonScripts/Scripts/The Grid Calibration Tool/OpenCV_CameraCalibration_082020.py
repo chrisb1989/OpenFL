@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import glob
+import time
 
 # termination criteria
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -43,13 +44,13 @@ while True:
         # Draw and display the corners
         cv2.drawChessboardCorners(frame, (9,6), corners,ret)
         cv2.imshow('frame', frame)
-        cv2.waitKey(500)
+        cv2.waitKey(0)
 
 
     # break the while loop if user presses 'q' key
     if cv2.waitKey(1) & 0xFF == ord('q'):
     	break
-    	time.sleep(1)
+    time.sleep(1)
 
 cap.release()
 cv2.destroyAllWindows()
