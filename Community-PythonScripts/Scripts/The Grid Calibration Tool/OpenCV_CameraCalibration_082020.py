@@ -21,7 +21,7 @@ imgpoints = [] # 2d points in image plane.
 
 # This is the rtsp stream capture
 cap = cv2.VideoCapture("rtsp://laser:laser@192.168.86.24/live")
-
+#
 while True:
     ret, frame = cap.read()
     # convert from BGR color to grayscale:
