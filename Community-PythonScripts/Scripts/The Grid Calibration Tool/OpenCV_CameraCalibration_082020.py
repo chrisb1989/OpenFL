@@ -43,8 +43,8 @@ while True:
         cv2.imshow('frame', frame)
         # calibration:
         cv2.waitKey(0)
-		ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, frame.shape[::-1], None, None)
-		#h,  w = frame.shape[:2]
+	ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, frame.shape[::-1], None, None)
+	#h,  w = frame.shape[:2]
 
 
 
