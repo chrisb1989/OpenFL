@@ -49,7 +49,7 @@ cv2.destroyAllWindows()
 # calibration
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 
-transform the matrix and distortion coefficients to writable lists
+#transform the matrix and distortion coefficients to writable lists
 data = {'camera_matrix': np.asarray(mtx).tolist(),
         'dist_coeff': np.asarray(dist).tolist()}
 
