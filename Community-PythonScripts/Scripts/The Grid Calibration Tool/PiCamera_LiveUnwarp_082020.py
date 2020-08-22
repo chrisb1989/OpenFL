@@ -12,6 +12,8 @@ import yaml
 ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--picamera", type=int, default=-1,
 	help="whether or not the Raspberry Pi camera should be used")
+ap.add_argument("-r", "--radius", type = int,
+	help = "radius of Gaussian blur; must be odd")
 args = vars(ap.parse_args())
 # initialize the video stream and allow the cammera sensor to warmup
 vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
@@ -39,17 +41,18 @@ dist = np.asarray(camCalData['dist_coeff'])
 # print("dir of dist is: "+str(dir(dist)))
 # print("type of dist is: "+str(type(dist)))
 
-def brightSpot:
+def brightSpot():
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	# perform a naive attempt to find the (x, y) coordinates of
 	# the area of the image with the largest intensity value
-	(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
-	cv2.circle(image, maxLoc, 5, (255, 0, 0), 2)
+	#(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
+	#cv2.circle(image, maxLoc, 5, (255, 0, 0), 2)
 	# display the results of the naive attempt
 	#cv2.imshow("Naive", image)
 	# apply a Gaussian blur to the image then find the brightest
 	# region
-	gray = cv2.GaussianBlur(gray, (args["radius"], args["radius"]), 0)
+	radius = 9
+	gray = cv2.GaussianBlur(gray, (5, 5, 0))
 	(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
 	cv2.circle(img, maxLoc, args["radius"], (255, 0, 0), 2)
 	# display the results of our newly improved method
@@ -69,7 +72,7 @@ while True:
 	#x,y,w,h = roi
 	#dst = dst[y:y+h, x:x+w]
 	#cv2.imshow("Original", frame) # show the original frame
-	cv2.imshow('Unwarped', img) # show the fixed image
+	#cv2.imshow('Unwarped', img) # show the fixed image
 	#cv2.waitKey(1)
 	brightSpot()
 	# break the while loop if user presses 'q' key
