@@ -19,7 +19,7 @@ images = glob.glob(r'savedImage_*.jpg')
 # pathlib.Path(path).mkdir(parents=True, exist_ok=True) 
 
 found = 0
-for fname in images:  # Here, 10 can be changed to whatever number you like to choose
+for fname in images:  
     img = cv2.imread(fname) # Capture frame-by-frame
     #print(images[im_i])
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -35,7 +35,7 @@ for fname in images:  # Here, 10 can be changed to whatever number you like to c
         found += 1
         cv2.imshow('img', img)
         # wait for space bar before next image capture
-        cv2.waitKey(33) == ord('32')
+        cv2.waitKey(1500)
         # if you want to save images with detected corners 
         # uncomment following 2 lines and lines 5, 18 and 19
         # image_name = path + '/calibresult' + str(found) + '.png'

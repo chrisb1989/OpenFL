@@ -20,7 +20,13 @@ iterator = 0
 while iterator < 10:
 	frame = vs.read()
 	filename = "savedImage_"+str(iterator)+".jpg"
-	cv2.imshow('frame', frame)
-	cv2.imwrite(filename, frame)
-	cv2.waitKey(0)
-	iterator += 1
+	cv2.imshow('Image Capture', frame)
+	c = cv2.waitKey(0)
+	if c == 32:
+		cv2.imwrite(filename, frame)
+		iterator += 1
+	elif c == 27:
+		continue
+	elif c == ord('a'):
+		break
+	

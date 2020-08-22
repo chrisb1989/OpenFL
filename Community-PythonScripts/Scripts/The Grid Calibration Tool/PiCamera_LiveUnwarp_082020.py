@@ -39,6 +39,23 @@ dist = np.asarray(camCalData['dist_coeff'])
 # print("dir of dist is: "+str(dir(dist)))
 # print("type of dist is: "+str(type(dist)))
 
+def brightSpot:
+	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	# perform a naive attempt to find the (x, y) coordinates of
+	# the area of the image with the largest intensity value
+	(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
+	cv2.circle(image, maxLoc, 5, (255, 0, 0), 2)
+	# display the results of the naive attempt
+	#cv2.imshow("Naive", image)
+	# apply a Gaussian blur to the image then find the brightest
+	# region
+	gray = cv2.GaussianBlur(gray, (args["radius"], args["radius"]), 0)
+	(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
+	cv2.circle(img, maxLoc, args["radius"], (255, 0, 0), 2)
+	# display the results of our newly improved method
+	cv2.imshow("LaserPoint", img)
+	cv2.waitKey(1)
+
 
 # loop over the frames from the video stream
 while True:
@@ -51,9 +68,10 @@ while True:
 	# crop the image
 	#x,y,w,h = roi
 	#dst = dst[y:y+h, x:x+w]
-	cv2.imshow("frame", frame)
-	cv2.imshow('img', img)
-	cv2.waitKey(1)
+	#cv2.imshow("Original", frame) # show the original frame
+	cv2.imshow('Unwarped', img) # show the fixed image
+	#cv2.waitKey(1)
+	brightSpot()
 	# break the while loop if user presses 'q' key
 	if cv2.waitKey(1000) & 0xFF == ord('q'):
 		break
