@@ -41,6 +41,7 @@ while True:
 	frame = vs.read()
 	# unwarp the stream
 	img = cv2.undistort(frame, mtx, dist)
+	img = cv2.rotate(img, cv2.ROTATE_180)
 	# run the brightSpot function to find the laser point
 	brightSpot()
 	cv2.imshow("LaserPoint", img)
