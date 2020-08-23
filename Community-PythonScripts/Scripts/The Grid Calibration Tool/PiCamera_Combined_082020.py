@@ -121,26 +121,26 @@ def viewStream():
 	cv2.imwrite("02_unwarped.png", targetImg)
 	targetImg = cv2.cvtColor(targetImg, cv2.COLOR_BGR2GRAY)
 	cv2.imwrite("03_grayscale.png", targetImg)
-	targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
-	cv2.imwrite("04_blurred.png", targetImg)
-	targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
-	cv2.imwrite("05_canny.png", targetImg)
-	targetImg = cv2.equalizeHist(targetImg, targetImg)
-	cv2.imwrite("06_equalizeHist.png", targetImg)
-	_ ,targetImg = cv2.threshold(targetImg, 160, 255, cv2.THRESH_BINARY)
-	cv2.imwrite("07_threshold.png", targetImg)
-	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
-	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
-	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=1)
-	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-	for cnt in contours:
-		retval = cv2.boundingRect(cnt)
-		centerX = retval[0] + retval[2] / 2
-		centerY = retval[1] + retval[3] / 2
-		cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
-		# print(retval) # for testing only remove later
-		targetImg[centerX, centerY] = 100
-	cv2.imwrite("08_contours.png", im2)
+	# targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
+	# cv2.imwrite("04_blurred.png", targetImg)
+	# targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
+	# cv2.imwrite("05_canny.png", targetImg)
+	# targetImg = cv2.equalizeHist(targetImg, targetImg)
+	# cv2.imwrite("06_equalizeHist.png", targetImg)
+	_ ,targetImg = cv2.threshold(targetImg, 200, 255, cv2.THRESH_BINARY)
+	# cv2.imwrite("07_threshold.png", targetImg)
+	# kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
+	# targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
+	# targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=1)
+	# im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	# for cnt in contours:
+	# 	retval = cv2.boundingRect(cnt)
+	# 	centerX = retval[0] + retval[2] / 2
+	# 	centerY = retval[1] + retval[3] / 2
+	# 	cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
+	# 	# print(retval) # for testing only remove later
+	# 	targetImg[centerX, centerY] = 100
+	# cv2.imwrite("08_contours.png", im2)
 
 	# loop over the frames from the video stream
 	while True:
