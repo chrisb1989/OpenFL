@@ -121,7 +121,8 @@ def viewStream():
 	targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
 	targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
 	_ ,targetImg = cv2.threshold(targetImg, 50, 255, cv2.THRESH_BINARY)
-	targetImgClose = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE,(3,3))
+	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
+	cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
 	cv2.imwrite("threshold.png", targetImg)
 	cv2.imwrite("Closed.png", targetImgClose)
 
