@@ -124,7 +124,7 @@ def viewStream():
 	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
 	targetImgOpen = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=3)
-	cv2.imwrite("Closed.png", targetImgOpen)
+	cv2.imwrite("Open.png", targetImgOpen)
 
 	# loop over the frames from the video stream
 	while True:
