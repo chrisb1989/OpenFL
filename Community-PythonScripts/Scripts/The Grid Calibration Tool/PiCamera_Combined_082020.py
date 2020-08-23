@@ -119,7 +119,8 @@ def viewStream():
 	targetImg = targetImg[75:425,130:480]
 	targetImg = cv2.cvtColor(targetImg, cv2.COLOR_BGR2GRAY)
 	targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
-	targetImg = cv2.Canny(targetImg, 80.0, 100.0, 3, L2gradient=True)
+	targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
+	_ ,targetImg = cv2.threshold(targetImg, 127, 255, cv2.THRESH_BINARY_INV)
 
 	# loop over the frames from the video stream
 	while True:
@@ -141,7 +142,7 @@ def viewStream():
 		#cv2.imshow("gray", gray2) # for testing
 		cv2.imshow("LaserPoint", img)
 		cv2.imshow("TargetLayer", targetImg)
-		#_ ,im2 = cv2.threshold(gray2, 127, 255, cv2.THRESH_BINARY_INV)
+		_ ,im2 = cv2.threshold(gray2, 127, 255, cv2.THRESH_BINARY_INV)
 		#cv2.imshow("threshold", im2)
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
