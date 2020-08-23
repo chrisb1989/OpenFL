@@ -123,15 +123,15 @@ def viewStream():
 		# create a grey version of the stream
 		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 		# apply a Gaussian blur to the grey version then find the brightest region
-		gray2 = cv2.GaussianBlur(gray, (5, 5),0)
+		gray2 = cv2.GaussianBlur(gray, (7, 7),0)
 		(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray2)
 		cv2.circle(img, maxLoc, 5, (255, 0, 0), 2)
 		# display the results in a window called LaserPoint
 		# wait 1 millisecond
 		cv2.waitKey(1)
-		cv2.imshow("gray", gray) # for testing
+		cv2.imshow("gray", gray2) # for testing
 		cv2.imshow("LaserPoint", img)
-		_ ,im2 = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV)
+		_ ,im2 = cv2.threshold(gray2, 127, 255, cv2.THRESH_BINARY_INV)
 		cv2.imshow("threshold", im2)
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
