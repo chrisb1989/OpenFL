@@ -122,7 +122,7 @@ def viewStream():
 	targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
 	_ ,targetImg = cv2.threshold(targetImg, 50, 255, cv2.THRESH_BINARY)
 	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
-	cv2.morphologyEx(targetImgClose, cv2.MORPH_CLOSE, kernel, iterations=5)
+	targetImgClose = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
 	cv2.imwrite("threshold.png", targetImg)
 	cv2.imwrite("Closed.png", targetImgClose)
 
