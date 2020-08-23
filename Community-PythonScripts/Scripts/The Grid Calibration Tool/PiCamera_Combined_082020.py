@@ -120,7 +120,7 @@ def viewStream():
 	targetImg = cv2.cvtColor(targetImg, cv2.COLOR_BGR2GRAY)
 	targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
 	targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
-	_ ,targetImg = cv2.threshold(targetImg, 180, 255, cv2.THRESH_BINARY)
+	_ ,targetImg = cv2.threshold(targetImg, 200, 255, cv2.THRESH_BINARY)
 	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=3)
