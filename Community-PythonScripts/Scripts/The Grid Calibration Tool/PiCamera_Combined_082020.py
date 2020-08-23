@@ -130,6 +130,8 @@ def viewStream():
 		# wait 1 millisecond
 		cv2.waitKey(1)
 		cv2.imshow("LaserPoint", img)
+		im2 = cv2.threshold(gray,127, 255, cv2.THRESH_BINARY_INV)
+		cv2.imshow("threshold", im2)
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
 			break
