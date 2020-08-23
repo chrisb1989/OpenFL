@@ -121,7 +121,7 @@ def viewStream():
 	targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
 	targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
 	_ ,targetImg = cv2.threshold(targetImg, 127, 255, cv2.THRESH_BINARY)
-	imwrite("threshold.jpg", targetImg)
+	cv2.imwrite("threshold.jpg", targetImg)
 
 	# loop over the frames from the video stream
 	while True:
