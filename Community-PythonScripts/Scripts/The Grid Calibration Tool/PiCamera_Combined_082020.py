@@ -35,19 +35,6 @@ def selectOptions():
 	else:
 		print("You Must Select A Number")
 
-
-# a function that finds the brightest spot and draws a circle around it
-def brightSpot():
-	# create a grey version of the stream
-	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	# apply a Gaussian blur to the grey version then find the brightest region
-	gray = cv2.GaussianBlur(gray, (5, 5),0)
-	(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
-	cv2.circle(img, maxLoc, 5, (255, 0, 0), 2)
-	# display the results in a window called LaserPoint
-	# wait 1 millisecond
-	cv2.waitKey(1)
-
 def captureImages():
 	iterator = 0
 
@@ -133,7 +120,15 @@ def viewStream():
 		img = cv2.undistort(frame, mtx, dist)
 		img = cv2.rotate(img, cv2.ROTATE_180)
 		# run the brightSpot function to find the laser point
-		brightSpot()
+		# create a grey version of the stream
+		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		# apply a Gaussian blur to the grey version then find the brightest region
+		gray = cv2.GaussianBlur(gray, (5, 5),0)
+		(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
+		cv2.circle(img, maxLoc, 5, (255, 0, 0), 2)
+		# display the results in a window called LaserPoint
+		# wait 1 millisecond
+		cv2.waitKey(1)
 		cv2.imshow("LaserPoint", img)
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
