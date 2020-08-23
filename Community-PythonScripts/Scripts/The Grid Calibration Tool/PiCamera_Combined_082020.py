@@ -143,10 +143,11 @@ def viewStream():
 while True:
 	print("Welcome. To continue enter any key, or enter Q to quit.")
 	userResponse = raw_input()
-	if userResponse == 'q' or 'Q':
-		break
-	else:
+	if userResponse == '':
 		selectOptions()
+	elif userResponse.lower() == 'q':
+		break
+	continue
 
 # do a bit of cleanup
 cv2.destroyAllWindows()
