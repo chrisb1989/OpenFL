@@ -124,9 +124,10 @@ def viewStream():
 		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 		# apply a Gaussian blur to the grey version then find the brightest region
 		gray2 = cv2.GaussianBlur(gray, (7, 7),0)
+		gray2 = gray2[75:425,130:480]
 		edges = cv2.Canny(gray2, 80.0, 100.0, 3, L2gradient=True)
 		cv2.imshow("canny", edges)
-		crop_img = edges[75:425,130:480]
+		#crop_img = edges[75:425,130:480]
 		cv2.imshow("cropped", crop_img)
 		(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray2)
 		cv2.circle(img, maxLoc, 5, (255, 0, 0), 2)
