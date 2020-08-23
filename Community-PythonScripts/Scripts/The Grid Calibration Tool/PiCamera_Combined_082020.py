@@ -119,18 +119,18 @@ def viewStream():
 	targetImg = targetImg[75:425,130:480]
 	targetImg = cv2.cvtColor(targetImg, cv2.COLOR_BGR2GRAY)
 	targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
-	#targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
+	targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
 	_ ,targetImg = cv2.threshold(targetImg, 160, 255, cv2.THRESH_BINARY)
-	# kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
-	# targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
-	# targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=3)
-	# im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-	# for cnt in contours:
-	# 	retval = cv2.boundingRect(cnt)
-	# 	centerX = retval[0] + retval[2] / 2
-	# 	centerY = retval[1] + retval[3] / 2
-	# 	# print(retval) # for testing only remove later
-	# 	targetImg[centerX, centerY] = 100
+	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
+	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
+	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=1)
+	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	for cnt in contours:
+		retval = cv2.boundingRect(cnt)
+		centerX = retval[0] + retval[2] / 2
+		centerY = retval[1] + retval[3] / 2
+		# print(retval) # for testing only remove later
+		targetImg[centerX, centerY] = 100
 	cv2.imwrite("target.png", targetImg)
 
 	# loop over the frames from the video stream
