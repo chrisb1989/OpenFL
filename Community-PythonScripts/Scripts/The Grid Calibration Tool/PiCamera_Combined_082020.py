@@ -126,7 +126,9 @@ def viewStream():
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=3)
 	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	for contour in contours:
-		retval = cv2.boundingRect(contours[i])
+		retval = cv.boundingRect(cnt)
+		centerX = retval.x + retval.width / 2
+		centerY = retval.y + retval.height / 2
 	cv2.imwrite("contours.png", im2)
 
 	# loop over the frames from the video stream
