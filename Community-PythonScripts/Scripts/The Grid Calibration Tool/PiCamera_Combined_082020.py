@@ -127,7 +127,7 @@ def viewStream():
 	cv2.imwrite("05_canny.png", targetImg)
 	#targetImg = cv2.equalizeHist(targetImg, targetImg)
 	#cv2.imwrite("06_equalizeHist.png", targetImg)
-	_ ,targetImg = cv2.threshold(targetImg, 185, 255, cv2.THRESH_BINARY)
+	_ ,targetImg = cv2.threshold(targetImg, 187, 255, cv2.THRESH_BINARY)
 	#cv2.imwrite("07_threshold.png", targetImg)
 	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
