@@ -137,7 +137,7 @@ def viewStream():
 		retval = cv2.boundingRect(cnt)
 		centerX = retval[0] + retval[2] / 2
 		centerY = retval[1] + retval[3] / 2
-		cv2.rectangle(targetImg, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
+		cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
 		# print(retval) # for testing only remove later
 		targetImg[centerX, centerY] = 100
 	cv2.imwrite("08_contours.png", im2)
