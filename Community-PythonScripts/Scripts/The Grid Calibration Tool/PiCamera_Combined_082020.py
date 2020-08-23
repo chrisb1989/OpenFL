@@ -142,8 +142,7 @@ def viewStream():
 while True:
 	input("Welcome. To continue enter any key, or enter Q to quit.")
 	begin = input()
-	if begin == "q" or "Q":
-		break
+	print(begin)
 	else:
 		selectOptions()
 
