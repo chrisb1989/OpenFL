@@ -82,25 +82,25 @@ def imageCalibration():
 
 	found = 0
 	for fname in images:  # Here, 10 can be changed to whatever number you like to choose
-	    img = cv2.imread(fname) # Capture frame-by-frame
-	    #print(images[im_i])
-	    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	    # Find the chess board corners
-	    ret, corners = cv2.findChessboardCorners(gray, (9,6), None)
-	    # If found, add object points, image points (after refining them)
-	    if ret == True:
-	        objpoints.append(objp)   # Certainly, every loop objp is the same, in 3D.
-	        corners2 = cv2.cornerSubPix(gray,corners,(11,11),(-1,-1),criteria)
-	        imgpoints.append(corners2)
-	        # Draw and display the corners
-	        img = cv2.drawChessboardCorners(img, (9,6), corners2, ret)
-	        found += 1
-	        cv2.imshow('img', img)
-	        cv2.waitKey(1000)
-	        # if you want to save images with detected corners 
-	        # uncomment following 2 lines and lines 5, 18 and 19
-	        # image_name = path + '/calibresult' + str(found) + '.png'
-	        # cv2.imwrite(image_name, img)
+	 	img = cv2.imread(fname) # Capture frame-by-frame
+		#print(images[im_i])
+		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		# Find the chess board corners
+		ret, corners = cv2.findChessboardCorners(gray, (9,6), None)
+		# If found, add object points, image points (after refining them)
+		if ret == True:
+			objpoints.append(objp)   # Certainly, every loop objp is the same, in 3D.
+			corners2 = cv2.cornerSubPix(gray,corners,(11,11),(-1,-1),criteria)
+			imgpoints.append(corners2)
+			# Draw and display the corners
+			img = cv2.drawChessboardCorners(img, (9,6), corners2, ret)
+			found += 1
+			cv2.imshow('img', img)
+			cv2.waitKey(1000)
+			# if you want to save images with detected corners 
+			# uncomment following 2 lines and lines 5, 18 and 19
+			# image_name = path + '/calibresult' + str(found) + '.png'
+			# cv2.imwrite(image_name, img)
 
 	print("Number of images used for calibration: ", found)
 
@@ -146,8 +146,7 @@ while True:
 	if userResponse == 'q' or 'Q':
 		break
 	else:
-		continue
-	selectOptions()
+		selectOptions()
 
 # do a bit of cleanup
 cv2.destroyAllWindows()
