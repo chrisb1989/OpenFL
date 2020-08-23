@@ -8,7 +8,7 @@ import cv2
 import numpy as np
 import yaml
 
-# construct the argument parse and parse the arguments
+# construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--picamera", type=int, default=-1,
 	help="whether or not the Raspberry Pi camera should be used")
