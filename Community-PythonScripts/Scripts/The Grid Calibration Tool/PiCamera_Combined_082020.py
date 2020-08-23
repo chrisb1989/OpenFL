@@ -26,11 +26,11 @@ def selectOptions():
 		3) View Calibrated Image Stream \n
 		""")
 	selection = raw_input()
-	if selection == 1:
+	if int(selection) == 1:
 		captureImages()
-	elif selection == 2:
+	elif int(selection) == 2:
 		imageCalibration()
-	elif selection == 3:
+	elif int(selection) == 3:
 		viewStream()
 	else:
 		print("You Must Select A Number")
