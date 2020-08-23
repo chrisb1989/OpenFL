@@ -18,12 +18,6 @@ args = vars(ap.parse_args())
 vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
 time.sleep(2.0)
 
-# import the calibration data
-camCalDataYaml = open("calibration_matrix.yaml")
-camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
-mtx = np.asarray(camCalData['camera_matrix'])
-dist = np.asarray(camCalData['dist_coeff'])
-
 def selectOptions():
 	selection = input(""" \n
 		Enter A Number to Select An Option, then press Enter: \n
@@ -126,6 +120,11 @@ def imageCalibration():
 
 
 def viewStream():
+	# import the calibration data
+	camCalDataYaml = open("calibration_matrix.yaml")
+	camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
+	mtx = np.asarray(camCalData['camera_matrix'])
+	dist = np.asarray(camCalData['dist_coeff'])
 	# loop over the frames from the video stream
 	while True:
 		frame = vs.read()
