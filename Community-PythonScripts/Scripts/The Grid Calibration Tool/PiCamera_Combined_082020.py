@@ -140,7 +140,7 @@ def viewStream():
 		cv2.waitKey(1)
 		#cv2.imshow("gray", gray2) # for testing
 		cv2.imshow("LaserPoint", img)
-		cv2.imshow(targetImg)
+		cv2.imshow("TargetLayer", targetImg)
 		#_ ,im2 = cv2.threshold(gray2, 127, 255, cv2.THRESH_BINARY_INV)
 		#cv2.imshow("threshold", im2)
 		# break the while loop if user presses 'q' key
