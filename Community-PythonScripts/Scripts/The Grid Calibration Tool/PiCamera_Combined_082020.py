@@ -114,14 +114,21 @@ def viewStream():
 	mtx = np.asarray(camCalData['camera_matrix'])
 	dist = np.asarray(camCalData['dist_coeff'])
 	targetImg = vs.read()
-	#targetImg = cv2.undistort(targetImg, mtx, dist)
 	targetImg = cv2.rotate(targetImg, cv2.ROTATE_180)
 	targetImg = targetImg[75:425,130:480]
+	imwrite("01_warped.png", targetImg)
+	targetImg = cv2.undistort(targetImg, mtx, dist)
+	imwrite("02_unwarped.png", targetImg)
 	targetImg = cv2.cvtColor(targetImg, cv2.COLOR_BGR2GRAY)
+	imwrite("03_grayscale.png", targetImg)
 	targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
+	imwrite("04_blurred.png", targetImg)
 	targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
+	imwrite("05_canny.png", targetImg)
 	targetImg = cv2.equalizeHist(targetImg, targetImg)
+	imwrite("06_equalizeHist.png", targetImg)
 	_ ,targetImg = cv2.threshold(targetImg, 160, 255, cv2.THRESH_BINARY)
+	imwrite("07_threshold.png", targetImg)
 	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=1)
@@ -133,7 +140,7 @@ def viewStream():
 		cv2.rectangle(targetImg, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
 		# print(retval) # for testing only remove later
 		targetImg[centerX, centerY] = 100
-	cv2.imwrite("target.png", targetImg)
+	cv2.imwrite("08_contours.png", im2)
 
 	# loop over the frames from the video stream
 	while True:
