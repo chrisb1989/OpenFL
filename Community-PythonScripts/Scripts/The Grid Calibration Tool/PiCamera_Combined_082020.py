@@ -139,6 +139,7 @@ def viewStream():
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
 			break
+		break
 	cv2.destroyAllWindows()
 
 while True:
