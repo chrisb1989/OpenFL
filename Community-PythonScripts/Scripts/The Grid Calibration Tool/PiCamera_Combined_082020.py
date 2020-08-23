@@ -143,8 +143,7 @@ while True:
 	input("Welcome. To continue enter any key, or enter Q to quit.")
 	begin = input()
 	print(begin)
-	else:
-		selectOptions()
+	selectOptions()
 
 # do a bit of cleanup
 cv2.destroyAllWindows()
