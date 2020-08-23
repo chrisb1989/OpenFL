@@ -19,12 +19,13 @@ vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
 time.sleep(2.0)
 
 def selectOptions():
-	selection = input(""" \n
+	print(""" \n
 		Enter A Number to Select An Option, then press Enter: \n
 		1) Capture Calibration Images \n
 		2) Run Calibration Routine \n
 		3) View Calibrated Image Stream \n
 		""")
+	selection = raw_input()
 	if selection == 1:
 		captureImages()
 	elif selection == 2:
