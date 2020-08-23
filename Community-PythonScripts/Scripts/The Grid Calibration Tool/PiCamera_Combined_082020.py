@@ -123,7 +123,7 @@ def viewStream():
 	cv2.imwrite("03_grayscale.png", targetImg)
 	# targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
 	cv2.imwrite("04_blurred.png", targetImg)
-	targetImg = cv2.Canny(targetImg, 80.0, 40.0, 3, L2gradient=True)
+	targetImg = cv2.Canny(targetImg, 160.0, 80.0, 3, L2gradient=True)
 	cv2.imwrite("05_canny.png", targetImg)
 	#targetImg = cv2.equalizeHist(targetImg, targetImg)
 	#cv2.imwrite("06_equalizeHist.png", targetImg)
@@ -140,7 +140,7 @@ def viewStream():
 		cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
 		# print(retval) # for testing only remove later
 		targetImg[centerX, centerY] = 100
-	cv2.imwrite("08_contours.png", targetImg)
+	cv2.imwrite("08_contours.png", tar)
 
 	# loop over the frames from the video stream
 	while True:
