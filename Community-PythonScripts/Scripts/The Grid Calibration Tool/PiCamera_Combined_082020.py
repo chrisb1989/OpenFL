@@ -31,11 +31,11 @@ def selectOptions():
 		2) Run Calibration Routine \n
 		3) View Calibrated Image Stream \n
 		""")
-	if selection = 1:
+	if selection == 1:
 		captureImages()
-	elif selection = 2:
+	elif selection == 2:
 		imageCalibration()
-	elif selection = 3:
+	elif selection == 3:
 		viewStream()
 	else:
 		print("You Must Select A Number")
