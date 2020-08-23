@@ -129,6 +129,7 @@ def viewStream():
 		# display the results in a window called LaserPoint
 		# wait 1 millisecond
 		cv2.waitKey(1)
+		cv2.imshow("gray", gray) # for testing
 		cv2.imshow("LaserPoint", img)
 		_ ,im2 = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV)
 		cv2.imshow("threshold", im2)
