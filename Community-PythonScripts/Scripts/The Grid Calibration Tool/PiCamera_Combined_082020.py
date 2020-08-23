@@ -127,9 +127,9 @@ def viewStream():
 	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	for cnt in contours:
 		retval = cv2.boundingRect(cnt)
-		#centerX = retval.x + retval.width / 2
-		#centerY = retval.y + retval.height / 2
-		print(retval)
+		centerX = retval[0] + retval[2] / 2
+		centerY = retval[1] + retval[3] / 2
+		# print(retval) # for testing only remove later
 	cv2.imwrite("contours.png", im2)
 
 	# loop over the frames from the video stream
