@@ -126,6 +126,8 @@ def viewStream():
 		gray2 = cv2.GaussianBlur(gray, (7, 7),0)
 		edges = cv2.Canny(gray2, 80.0, 100.0, 3, L2gradient=True)
 		cv2.imshow("canny", edges)
+		crop_img = edges[50:540,50:380]
+		cv2.imshow("cropped", crop_img)
 		(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray2)
 		cv2.circle(img, maxLoc, 5, (255, 0, 0), 2)
 		# display the results in a window called LaserPoint
