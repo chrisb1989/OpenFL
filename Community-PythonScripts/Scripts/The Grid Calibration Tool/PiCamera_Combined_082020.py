@@ -123,8 +123,9 @@ def viewStream():
 	_ ,targetImg = cv2.threshold(targetImg, 50, 255, cv2.THRESH_BINARY)
 	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
-	targetImgOpen = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=3)
-	cv2.imwrite("Open.png", targetImgOpen)
+	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=3)
+	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	cv2.imwrite("contours.png", im2)
 
 	# loop over the frames from the video stream
 	while True:
