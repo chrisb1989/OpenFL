@@ -140,8 +140,8 @@ def viewStream():
 		cv2.destroyAllWindows()
 
 while True:
-	begin = input("Welcome. To continue enter any key, or enter Q to quit.")
-	if begin == "q" or "Q":
+	input("Welcome. To continue enter any key, or enter Q to quit.")
+	if str(input()) == "q" or "Q":
 		break
 	else:
 		continue
