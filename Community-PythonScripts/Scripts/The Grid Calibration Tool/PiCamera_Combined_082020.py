@@ -140,9 +140,11 @@ def viewStream():
 		cv2.destroyAllWindows()
 
 while True:
-	begin = input("Welcome. To continue enter any key, or enter Q to quit.")
+	print("Welcome. To continue enter any key, or enter Q to quit.")
+	begin = input()
 	print(begin)
 	print(type(begin))
+	break
 	selectOptions()
 
 # do a bit of cleanup
