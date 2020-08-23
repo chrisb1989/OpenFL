@@ -113,35 +113,39 @@ def viewStream():
 	camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
 	mtx = np.asarray(camCalData['camera_matrix'])
 	dist = np.asarray(camCalData['dist_coeff'])
+	targetImg = vs.read()
+	targetImg = cv2.undistort(targetImg, mtx, dist)
+	targetImg = cv2.rotate(targetImg, cv2.ROTATE_180)
+	targetImg = targetImg[75:425,130:480]
+	targetImg = cv2.cvtColor(targetImg, cv2.COLOR_BGR2GRAY)
+	targetImg = cv2.GaussianBlur(targetImg, (7, 7),0)
+	targetImg = cv2.Canny(targetImg, 80.0, 100.0, 3, L2gradient=True)
+
 	# loop over the frames from the video stream
 	while True:
-		frame = vs.read()
+		img = vs.read()
 		# unwarp the stream
-		img = cv2.undistort(frame, mtx, dist)
+		img = cv2.undistort(img, mtx, dist)
 		img = cv2.rotate(img, cv2.ROTATE_180)
+		img = img[75:425,130:480]
 		# run the brightSpot function to find the laser point
 		# create a grey version of the stream
 		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 		# apply a Gaussian blur to the grey version then find the brightest region
-		gray2 = cv2.GaussianBlur(gray, (7, 7),0)
-		gray3 = cv2.GaussianBlur(gray, (5, 5),0)
-		edges = cv2.Canny(gray2, 80.0, 100.0, 3, L2gradient=True)
-		#cv2.imshow("canny", edges)
-		crop_img = edges[75:425,130:480]
-		cv2.imshow("cropped", crop_img)
-		(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray3)
+		gray = cv2.GaussianBlur(gray, (5, 5),0)
+		(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
 		cv2.circle(img, maxLoc, 5, (255, 0, 0), 2)
 		# display the results in a window called LaserPoint
 		# wait 1 millisecond
 		cv2.waitKey(1)
 		#cv2.imshow("gray", gray2) # for testing
 		cv2.imshow("LaserPoint", img)
+		cv2.imshow(targetImg)
 		#_ ,im2 = cv2.threshold(gray2, 127, 255, cv2.THRESH_BINARY_INV)
 		#cv2.imshow("threshold", im2)
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
 			break
-			imwrite("Canny.jpg", edges)
 	cv2.destroyAllWindows()
 
 while True:
