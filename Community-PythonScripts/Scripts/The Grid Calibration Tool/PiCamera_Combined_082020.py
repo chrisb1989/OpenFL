@@ -130,7 +130,8 @@ def viewStream():
 		centerX = retval[0] + retval[2] / 2
 		centerY = retval[1] + retval[3] / 2
 		# print(retval) # for testing only remove later
-	cv2.imwrite("contours.png", im2)
+	targetImg[centerX, centerY] = 100
+	cv2.imwrite("target.png", targetImg)
 
 	# loop over the frames from the video stream
 	while True:
