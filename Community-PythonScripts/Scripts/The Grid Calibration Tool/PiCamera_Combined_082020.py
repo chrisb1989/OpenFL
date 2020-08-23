@@ -143,7 +143,7 @@ while True:
 	print("Welcome. To continue enter any key, or enter Q to quit.")
 	userResponse = raw_input()
 	print(userResponse)
-	print(type(userREsponse))
+	print(type(userResponse))
 	break
 	selectOptions()
 
