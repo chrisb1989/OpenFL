@@ -8,25 +8,15 @@ import cv2
 import numpy as np
 import yaml
 import glob
-import picamera.array
 import picamera
 
-# # construct the argument parser and parse the arguments
-# ap = argparse.ArgumentParser()
-# ap.add_argument("-p", "--picamera", type=int, default=-1,
-# 	help="whether or not the Raspberry Pi camera should be used")
-# args = vars(ap.parse_args())
-# # initialize the video stream and allow the cammera sensor to warmup
-# vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
-# time.sleep(2.0)
-
-# initialize the camera and grab a reference to the raw camera capture
 with picamera.PiCamera() as camera:
-	camera.start_preview()
-	time.sleep(0.1)
-	with picamera.array.PiRGBArray(camera) as stream:
-		camera.capture(stream, format='bgr')
-		# At this point the image is available as stream.array
+	camera.resolution = (3280, 2464)
+	camera.framerate = 15
+	time.sleep(2)
+	image = np.empty((2464 * 3280 * 3,), dtype=np.uint8)
+	camera.capture(image, 'bgr')
+	targetImg = image.reshape((2640, 3280, 3))
 		
 
 def selectOptions():
