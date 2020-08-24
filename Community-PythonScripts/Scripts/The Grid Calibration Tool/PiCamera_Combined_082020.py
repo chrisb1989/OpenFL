@@ -143,14 +143,14 @@ def viewStream():
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=3)
 	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-	for cnt in contours:
-		retval = cv2.boundingRect(cnt)
-		centerX = retval[0] + retval[2] / 2
-		centerY = retval[1] + retval[3] / 2
-		cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
-		# print(retval) # for testing only remove later
-		im2[centerX, centerY] = 100
-		cv2.imwrite("09_contours.png", im2)
+	# for cnt in contours:
+	# 	retval = cv2.boundingRect(cnt)
+	# 	centerX = retval[0] + retval[2] / 2
+	# 	centerY = retval[1] + retval[3] / 2
+	# 	cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
+	# 	# print(retval) # for testing only remove later
+	# 	im2[centerX, centerY] = 100
+	# 	cv2.imwrite("09_contours.png", im2)
 	targetImg = cv2.moments(targetImg)
 	cv2.imshow("08_final", im2)
 	
