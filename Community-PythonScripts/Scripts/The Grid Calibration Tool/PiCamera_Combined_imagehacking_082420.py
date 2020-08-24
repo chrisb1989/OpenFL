@@ -130,7 +130,7 @@ def viewStream():
 	# cv2.imshow("imagehacking", outImg)
 	# cv2.imwrite("imagehacking_live.png", outImg)
 	# This part is from Tiago:
-	# kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
+	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
 	targetImg = cv2.morphologyEx(outImg, cv2.MORPH_CLOSE, kernel, iterations=5)
 	targetImg = cv2.morphologyEx(outImg, cv2.MORPH_OPEN, kernel, iterations=1)
 	# cv2.imshow("imagehacking with morphology", targetImg)
