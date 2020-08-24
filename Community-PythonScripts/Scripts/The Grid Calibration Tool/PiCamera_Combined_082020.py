@@ -142,14 +142,14 @@ def viewStream():
 		im2[centerX, centerY] = 100
 		cv2.imwrite("09_contours_2.png", im2)
 	targetImg = cv2.moments(targetImg)
-	cv2.imshow("08_final.png", im2)
+	cv2.imshow("08_final", im2)
 	
 
 	# loop over the frames from the video stream
 	while True:
 		img = vs.read()
 		# unwarp the stream
-		img = cv2.undistort(img, mtx, dist)
+		# img = cv2.undistort(img, mtx, dist)
 		img = cv2.rotate(img, cv2.ROTATE_180)
 		img = img[75:425,130:480]
 		# run the brightSpot function to find the laser point
@@ -164,7 +164,7 @@ def viewStream():
 		cv2.waitKey(1)
 		#cv2.imshow("gray", gray2) # for testing
 		cv2.imshow("LaserPoint", img)
-		cv2.imshow("TargetLayer", targetImg)
+		# cv2.imshow("TargetLayer", targetImg)
 		#cv2.imshow("threshold", im2)
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
