@@ -121,7 +121,7 @@ def viewStream():
 	#cv2.imwrite("02_unwarped.png", targetImg)
 	targetImg = cv2.cvtColor(targetImg, cv2.COLOR_BGR2GRAY)
 	cv2.imwrite("03_grayscale.png", targetImg)
-	targetImg = cv2.GaussianBlur(targetImg, (11, 11),0)
+	targetImg = cv2.GaussianBlur(targetImg, (9, 9),0)
 	cv2.imwrite("04_blurred.png", targetImg)
 	targetImg = cv2.Canny(targetImg, 80, 40.0, 3, L2gradient=True)
 	cv2.imwrite("05_canny.png", targetImg)
@@ -141,7 +141,7 @@ def viewStream():
 		# print(retval) # for testing only remove later
 		targetImg[centerX, centerY] = 100
 		cv2.imwrite("09_contours_2.png", im2)
-	cv2.imwrite("08_contours.png", targetImg)
+		cv2.imwrite("08_contours.png", targetImg)
 	
 
 	# loop over the frames from the video stream
