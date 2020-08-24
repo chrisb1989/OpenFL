@@ -135,7 +135,7 @@ def viewStream():
 	# targetImg = cv2.morphologyEx(outImg, cv2.MORPH_OPEN, kernel, iterations=3)
 	# cv2.imshow("imagehacking with morphology", targetImg)
 	# cv2.imwrite("imagehacking_live_wMorphology.png", targetImg)
-	im2, contours, hierarchy = cv2.findContours(blendedImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	im2, contours, hierarchy = cv2.findContours(outImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	for cnt in contours:
 		retval = cv2.boundingRect(cnt)
 		centerX = retval[0] + retval[2] / 2
