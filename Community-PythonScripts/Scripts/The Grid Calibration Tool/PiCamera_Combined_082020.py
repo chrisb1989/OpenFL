@@ -8,8 +8,8 @@ import cv2
 import numpy as np
 import yaml
 import glob
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+import picamera.array
+import picamera
 
 # # construct the argument parser and parse the arguments
 # ap = argparse.ArgumentParser()
@@ -21,17 +21,13 @@ from picamera import PiCamera
 # time.sleep(2.0)
 
 # initialize the camera and grab a reference to the raw camera capture
-picamera = PiCamera()
-# allow the camera to warmup
-time.sleep(2)
-# grab an image from the camera
 with picamera.PiCamera() as camera:
-    camera.start_preview()
-    time.sleep(2)
-    with picamera.array.PiRGBArray(camera) as stream:
-        camera.capture(stream, format='bgr')
-        # At this point the image is available as stream.array
-        targetImg = stream.array
+	camera.start_preview()
+	time.sleep(2)
+	with picamera.array.PiRGBArray(camera) as stream:
+		camera.capture(stream, format='bgr')
+		# At this point the image is available as stream.array
+		targetImg = stream.array
 
 def selectOptions():
 	print(""" \n
