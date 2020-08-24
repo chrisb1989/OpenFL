@@ -23,7 +23,7 @@ import picamera
 # initialize the camera and grab a reference to the raw camera capture
 with picamera.PiCamera() as camera:
 	camera.start_preview()
-	time.sleep(2)
+	time.sleep(0.1)
 	with picamera.array.PiRGBArray(camera) as stream:
 		camera.capture(stream, format='bgr')
 		# At this point the image is available as stream.array
