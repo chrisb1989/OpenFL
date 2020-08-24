@@ -143,9 +143,9 @@ def viewStream():
 		cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
 		# print(retval) # for testing only remove later
 		im2[centerX, centerY] = 100
-		cv2.imwrite("imagehacking_center.jpg", im2)
+		cv2.imwrite("imagehacking_center.png", im2)
 	cv2.imshow("imagehacking_final", im2)
-	cv2.imwrite("imagehacking_final.jpg", im2)
+	cv2.imwrite("imagehacking_final.png", im2)
 
 	
 
