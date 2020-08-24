@@ -157,7 +157,7 @@ def viewStream():
 
 	# loop over the frames from the video stream
 	while True:
-		img = vs.read()
+		img = rawCapture.array
 		# unwarp the stream
 		# img = cv2.undistort(img, mtx, dist)
 		img = cv2.rotate(img, cv2.ROTATE_180)
