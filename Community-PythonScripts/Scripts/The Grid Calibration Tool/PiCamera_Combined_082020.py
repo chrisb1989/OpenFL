@@ -135,10 +135,8 @@ def viewStream():
 	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	for cnt in contours:
 		retval = cv2.boundingRect(cnt)
-		centerX = retval[0] + retval[2] 
-		centerX = centerX / 2
-		centerY = (retval[1] + retval[3]) 
-		centerY = centerY / 2
+		centerX = retval[0] + retval[2] / 2
+		centerY = retval[1] + retval[3] / 2
 		#cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
 		# print(retval) # for testing only remove later
 		im2[centerX, centerY] = 100
