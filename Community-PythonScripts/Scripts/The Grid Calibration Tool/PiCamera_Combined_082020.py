@@ -27,7 +27,7 @@ with picamera.PiCamera() as camera:
 	with picamera.array.PiRGBArray(camera) as stream:
 		camera.capture(stream, format='bgr')
 		# At this point the image is available as stream.array
-		targetImg = stream.array
+		
 
 def selectOptions():
 	print(""" \n
@@ -126,6 +126,7 @@ def viewStream():
 	# dist = np.asarray(camCalData['dist_coeff'])
 	#targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
 	#targetImg = targetImg[160:490,84:416]
+	targetImg = stream.array
 	cv2.imwrite("01_warped.png", targetImg)
 	#targetImg = cv2.undistort(targetImg, mtx, dist)
 	#cv2.imwrite("02_unwarped.png", targetImg)
@@ -158,6 +159,7 @@ def viewStream():
 
 	# loop over the frames from the video stream
 	while True:
+		targetImg = stream.array
 		targetImg = img
 		# unwarp the stream
 		# img = cv2.undistort(img, mtx, dist)
