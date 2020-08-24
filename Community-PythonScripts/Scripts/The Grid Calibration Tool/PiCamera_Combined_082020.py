@@ -119,10 +119,10 @@ def imageCalibration():
 
 def viewStream():
 	# import the calibration data
-	camCalDataYaml = open("calibration_matrix.yaml")
-	camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
-	mtx = np.asarray(camCalData['camera_matrix'])
-	dist = np.asarray(camCalData['dist_coeff'])
+	# camCalDataYaml = open("calibration_matrix.yaml")
+	# camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
+	# mtx = np.asarray(camCalData['camera_matrix'])
+	# dist = np.asarray(camCalData['dist_coeff'])
 	targetImg = rawCapture.array
 	targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
 	#targetImg = targetImg[160:490,84:416]
