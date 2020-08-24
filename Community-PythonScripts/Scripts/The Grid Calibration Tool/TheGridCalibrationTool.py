@@ -14,8 +14,8 @@ root = Tk()
 # name of the Tkinter window:
 root.title('Photonsters Form 1+ Grid Calibration Tool')
 # use the Photonsters image as a window icon
-img = Image("photo", file="Photonsters.gif")
-root.tk.call('wm','iconphoto',root._w,img)
+#img = Image("photo", file="Photonsters.gif")
+#root.tk.call('wm','iconphoto',root._w,img)
 
 # use ravel to flatten the grid table to 1D
 gridCal = np.ravel(p.read_grid_table())	
