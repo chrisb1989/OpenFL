@@ -21,7 +21,7 @@ from picamera import PiCamera
 # time.sleep(2.0)
 
 # initialize the camera and grab a reference to the raw camera capture
-camera = PiCamera()
+picamera = PiCamera()
 # allow the camera to warmup
 time.sleep(2)
 # grab an image from the camera
