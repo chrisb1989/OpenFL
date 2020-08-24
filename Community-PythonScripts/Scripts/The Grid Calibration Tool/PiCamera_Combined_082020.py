@@ -153,6 +153,7 @@ def viewStream():
 	# 	cv2.imwrite("09_contours.png", im2)
 	targetImg = cv2.moments(targetImg)
 	cv2.imshow("08_final", im2)
+	cv2.imwrite("final_big.png", im2)
 	
 
 	# loop over the frames from the video stream
