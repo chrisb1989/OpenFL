@@ -121,7 +121,7 @@ def viewStream():
 	#cv2.imwrite("02_unwarped.png", targetImg)
 	targetImg = cv2.cvtColor(targetImg, cv2.COLOR_BGR2GRAY)
 	cv2.imwrite("03_grayscale.png", targetImg)
-	targetImg = cv2.GaussianBlur(targetImg, (8, 8),0)
+	targetImg = cv2.GaussianBlur(targetImg, (9, 9),0)
 	cv2.imwrite("04_blurred.png", targetImg)
 	targetImg = cv2.Canny(targetImg, 80, 40.0, 3, L2gradient=True)
 	cv2.imwrite("05_canny.png", targetImg)
