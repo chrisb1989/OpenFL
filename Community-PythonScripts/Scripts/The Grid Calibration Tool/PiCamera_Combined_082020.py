@@ -8,15 +8,25 @@ import cv2
 import numpy as np
 import yaml
 import glob
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 
-# construct the argument parser and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--picamera", type=int, default=-1,
-	help="whether or not the Raspberry Pi camera should be used")
-args = vars(ap.parse_args())
-# initialize the video stream and allow the cammera sensor to warmup
-vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
-time.sleep(2.0)
+# # construct the argument parser and parse the arguments
+# ap = argparse.ArgumentParser()
+# ap.add_argument("-p", "--picamera", type=int, default=-1,
+# 	help="whether or not the Raspberry Pi camera should be used")
+# args = vars(ap.parse_args())
+# # initialize the video stream and allow the cammera sensor to warmup
+# vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+# time.sleep(2.0)
+
+# initialize the camera and grab a reference to the raw camera capture
+camera = PiCamera()
+rawCapture = PiRGBArray(camera)
+# allow the camera to warmup
+time.sleep(0.1)
+# grab an image from the camera
+camera.capture(rawCapture, format="bgr")
 
 def selectOptions():
 	print(""" \n
@@ -39,7 +49,7 @@ def captureImages():
 	iterator = 0
 
 	while iterator < 10:
-		frame = vs.read()
+		frame = rawCapture.array
 		filename = "savedImage_"+str(iterator)+".jpg"
 		cv2.imshow('Image Capture', frame)
 		c = cv2.waitKey(0)
@@ -113,9 +123,9 @@ def viewStream():
 	camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
 	mtx = np.asarray(camCalData['camera_matrix'])
 	dist = np.asarray(camCalData['dist_coeff'])
-	targetImg = vs.read()
+	targetImg = rawCapture.array
 	targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
-	targetImg = targetImg[160:490,84:416]
+	#targetImg = targetImg[160:490,84:416]
 	cv2.imwrite("01_warped.png", targetImg)
 	#targetImg = cv2.undistort(targetImg, mtx, dist)
 	#cv2.imwrite("02_unwarped.png", targetImg)
