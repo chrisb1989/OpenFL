@@ -24,7 +24,7 @@ from picamera import PiCamera
 camera = PiCamera()
 rawCapture = PiRGBArray(camera)
 # allow the camera to warmup
-time.sleep(0.1)
+time.sleep(2)
 # grab an image from the camera
 camera.capture(rawCapture, format="bgr")
 
