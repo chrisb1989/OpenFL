@@ -8,16 +8,15 @@ import cv2
 import numpy as np
 import yaml
 import glob
-import picamera
 
-with picamera.PiCamera() as camera:
-	camera.resolution = (1920, 1080)
-	camera.framerate = 30
-	time.sleep(2)
-	image = np.empty((1080 * 1920 * 3,), dtype=np.uint8)
-	camera.capture(image, 'bgr')
-	targetImg = image.reshape((1920, 1080, 3))
-		
+# construct the argument parser and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-p", "--picamera", type=int, default=-1,
+	help="whether or not the Raspberry Pi camera should be used")
+args = vars(ap.parse_args())
+# initialize the video stream and allow the cammera sensor to warmup
+vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+time.sleep(2.0)
 
 def selectOptions():
 	print(""" \n
@@ -40,7 +39,7 @@ def captureImages():
 	iterator = 0
 
 	while iterator < 10:
-		frame = rawCapture.array
+		frame = vs.read()
 		filename = "savedImage_"+str(iterator)+".jpg"
 		cv2.imshow('Image Capture', frame)
 		c = cv2.waitKey(0)
@@ -110,13 +109,13 @@ def imageCalibration():
 
 def viewStream():
 	# import the calibration data
-	# camCalDataYaml = open("calibration_matrix.yaml")
-	# camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
-	# mtx = np.asarray(camCalData['camera_matrix'])
-	# dist = np.asarray(camCalData['dist_coeff'])
-	#targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
-	#targetImg = targetImg[160:490,84:416]
-	targetImg = stream.array
+	camCalDataYaml = open("calibration_matrix.yaml")
+	camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
+	mtx = np.asarray(camCalData['camera_matrix'])
+	dist = np.asarray(camCalData['dist_coeff'])
+	targetImg = vs.read()
+	targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
+	targetImg = targetImg[160:490,84:416]
 	cv2.imwrite("01_warped.png", targetImg)
 	#targetImg = cv2.undistort(targetImg, mtx, dist)
 	#cv2.imwrite("02_unwarped.png", targetImg)
@@ -134,23 +133,21 @@ def viewStream():
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
 	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=3)
 	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-	# for cnt in contours:
-	# 	retval = cv2.boundingRect(cnt)
-	# 	centerX = retval[0] + retval[2] / 2
-	# 	centerY = retval[1] + retval[3] / 2
-	# 	cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
-	# 	# print(retval) # for testing only remove later
-	# 	im2[centerX, centerY] = 100
-	# 	cv2.imwrite("09_contours.png", im2)
+	for cnt in contours:
+		retval = cv2.boundingRect(cnt)
+		centerX = retval[0] + retval[2] / 2
+		centerY = retval[1] + retval[3] / 2
+		cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
+		# print(retval) # for testing only remove later
+		im2[centerX, centerY] = 100
+		cv2.imwrite("09_contours_2.png", im2)
 	targetImg = cv2.moments(targetImg)
 	cv2.imshow("08_final", im2)
-	cv2.imwrite("final_big.png", im2)
 	
 
 	# loop over the frames from the video stream
 	while True:
-		targetImg = stream.array
-		targetImg = img
+		img = vs.read()
 		# unwarp the stream
 		# img = cv2.undistort(img, mtx, dist)
 		img = cv2.rotate(img, cv2.ROTATE_180)
