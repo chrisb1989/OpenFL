@@ -130,12 +130,12 @@ def viewStream():
 	cv2.imshow("imagehacking", outImg)
 	cv2.imwrite("imagehacking_live.png", outImg)
 	# This part is from Tiago:
-	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
-	targetImg = cv2.morphologyEx(outImg, cv2.MORPH_CLOSE, kernel, iterations=5)
-	targetImg = cv2.morphologyEx(outImg, cv2.MORPH_OPEN, kernel, iterations=3)
-	cv2.imshow("imagehacking with morphology", targetImg)
-	cv2.imwrite("imagehacking_live_wMorphology.png", targetImg)
-	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	# kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
+	# targetImg = cv2.morphologyEx(outImg, cv2.MORPH_CLOSE, kernel, iterations=5)
+	# targetImg = cv2.morphologyEx(outImg, cv2.MORPH_OPEN, kernel, iterations=3)
+	# cv2.imshow("imagehacking with morphology", targetImg)
+	# cv2.imwrite("imagehacking_live_wMorphology.png", targetImg)
+	im2, contours, hierarchy = cv2.findContours(blendedImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	for cnt in contours:
 		retval = cv2.boundingRect(cnt)
 		centerX = retval[0] + retval[2] / 2
