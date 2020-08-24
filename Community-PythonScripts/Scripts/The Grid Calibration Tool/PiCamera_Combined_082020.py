@@ -26,7 +26,7 @@ rawCapture = PiRGBArray(camera)
 # allow the camera to warmup
 time.sleep(2)
 # grab an image from the camera
-camera.capture(rawCapture, format="bgr")
+
 
 def selectOptions():
 	print(""" \n
@@ -49,7 +49,7 @@ def captureImages():
 	iterator = 0
 
 	while iterator < 10:
-		frame = rawCapture.array
+		frame = camera.capture(rawCapture, format="bgr")
 		filename = "savedImage_"+str(iterator)+".jpg"
 		cv2.imshow('Image Capture', frame)
 		c = cv2.waitKey(0)
@@ -123,7 +123,7 @@ def viewStream():
 	# camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
 	# mtx = np.asarray(camCalData['camera_matrix'])
 	# dist = np.asarray(camCalData['dist_coeff'])
-	targetImg = rawCapture.array
+	targetImg = camera.capture(rawCapture, format="bgr")
 	#targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
 	#targetImg = targetImg[160:490,84:416]
 	cv2.imwrite("01_warped.png", targetImg)
@@ -158,7 +158,7 @@ def viewStream():
 
 	# loop over the frames from the video stream
 	while True:
-		img = rawCapture.array
+		img = camera.capture(rawCapture, format="bgr")
 		# unwarp the stream
 		# img = cv2.undistort(img, mtx, dist)
 		img = cv2.rotate(img, cv2.ROTATE_180)
