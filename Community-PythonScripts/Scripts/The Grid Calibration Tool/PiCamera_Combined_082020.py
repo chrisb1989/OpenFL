@@ -11,12 +11,12 @@ import glob
 import picamera
 
 with picamera.PiCamera() as camera:
-	camera.resolution = (3280, 2464)
-	camera.framerate = 15
+	camera.resolution = (1920, 1080)
+	camera.framerate = 30
 	time.sleep(2)
-	image = np.empty((2464 * 3280 * 3,), dtype=np.uint8)
+	image = np.empty((1080 * 1920 * 3,), dtype=np.uint8)
 	camera.capture(image, 'bgr')
-	targetImg = image.reshape((2640, 3280, 3))
+	targetImg = image.reshape((1920, 1080, 3))
 		
 
 def selectOptions():
