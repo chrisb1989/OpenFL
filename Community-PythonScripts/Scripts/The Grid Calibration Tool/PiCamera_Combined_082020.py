@@ -124,7 +124,7 @@ def viewStream():
 	# mtx = np.asarray(camCalData['camera_matrix'])
 	# dist = np.asarray(camCalData['dist_coeff'])
 	targetImg = rawCapture.array
-	targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
+	#targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
 	#targetImg = targetImg[160:490,84:416]
 	cv2.imwrite("01_warped.png", targetImg)
 	#targetImg = cv2.undistort(targetImg, mtx, dist)
