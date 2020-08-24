@@ -22,11 +22,13 @@ from picamera import PiCamera
 
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-rawCapture = PiRGBArray(camera)
 # allow the camera to warmup
 time.sleep(2)
 # grab an image from the camera
-camera.capture(rawCapture, format="bgr")
+with picamera.array.PiRGBArray(camera) as stream:
+		camera.capture(stream, format='bgr')
+		# At this point the image is available as stream.array
+		image = stream.array
 
 def selectOptions():
 	print(""" \n
@@ -123,8 +125,10 @@ def viewStream():
 	# camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
 	# mtx = np.asarray(camCalData['camera_matrix'])
 	# dist = np.asarray(camCalData['dist_coeff'])
-	camera.capture(rawCapture, format="bgr")
-	targetImg = rawCapture.array
+	with picamera.array.PiRGBArray(camera) as stream:
+		camera.capture(stream, format='bgr')
+		# At this point the image is available as stream.array
+		targetImg = stream.array
 	#targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
 	#targetImg = targetImg[160:490,84:416]
 	cv2.imwrite("01_warped.png", targetImg)
@@ -159,8 +163,10 @@ def viewStream():
 
 	# loop over the frames from the video stream
 	while True:
-		camera.capture(rawCapture, format="bgr")
-		img = rawCapture.array
+		with picamera.array.PiRGBArray(camera) as stream:
+			camera.capture(stream, format='bgr')
+			# At this point the image is available as stream.array
+			targetImg = stream.array
 		# unwarp the stream
 		# img = cv2.undistort(img, mtx, dist)
 		img = cv2.rotate(img, cv2.ROTATE_180)
