@@ -9,13 +9,15 @@ import numpy as np
 import yaml
 import glob
 
-# construct the argument parser and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--picamera", type=int, default=-1,
-	help="whether or not the Raspberry Pi camera should be used")
-args = vars(ap.parse_args())
-# initialize the video stream and allow the cammera sensor to warmup
-vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+# Are we using the Pi Camera?
+usingPiCamera = True
+# Set initial frame size.
+frameSize = (2464, 2464)
+ 
+# Initialize mutithreading the video stream.
+vs = VideoStream(src=0, usePiCamera=usingPiCamera, resolution=frameSize,
+		framerate=30).start()
+# Allow the camera to warm up.
 time.sleep(2.0)
 
 def selectOptions():
@@ -40,10 +42,11 @@ def captureImages():
 
 	while iterator < 10:
 		frame = vs.read()
-		filename = "savedImage_"+str(iterator)+".jpg"
+		filename = "savedImage_"+str(iterator)+".png"
 		cv2.imshow('Image Capture', frame)
 		c = cv2.waitKey(0)
 		if c == 32:
+			frame = vs.read()
 			cv2.imwrite(filename, frame)
 			iterator += 1
 		elif c == 27:
@@ -62,7 +65,7 @@ def imageCalibration():
 	objpoints = [] # 3d point in real world space
 	imgpoints = [] # 2d points in image plane.
 
-	images = glob.glob(r'savedImage_*.jpg')
+	images = glob.glob(r'savedImage_*.png')
 
 	# path = 'results'
 	# pathlib.Path(path).mkdir(parents=True, exist_ok=True) 
@@ -82,6 +85,7 @@ def imageCalibration():
 			# Draw and display the corners
 			img = cv2.drawChessboardCorners(img, (9,6), corners2, ret)
 			found += 1
+			img = cv2.resize(img,None,fx=0.25, fy=0.25, interpolation = cv2.INTER_CUBIC)
 			cv2.imshow('img', img)
 			cv2.waitKey(1000)
 			# if you want to save images with detected corners 
@@ -113,36 +117,39 @@ def viewStream():
 	camCalData = yaml.load(camCalDataYaml, Loader=yaml.FullLoader)
 	mtx = np.asarray(camCalData['camera_matrix'])
 	dist = np.asarray(camCalData['dist_coeff'])
-	targetImg = vs.read()
-	targetImg = cv2.rotate(targetImg, cv2.ROTATE_90_CLOCKWISE)
-	targetImg = targetImg[160:490,84:416]
-	cv2.imwrite("01_warped.png", targetImg)
-	#targetImg = cv2.undistort(targetImg, mtx, dist)
-	#cv2.imwrite("02_unwarped.png", targetImg)
-	targetImg = cv2.cvtColor(targetImg, cv2.COLOR_BGR2GRAY)
-	cv2.imwrite("03_grayscale.png", targetImg)
-	targetImg = cv2.GaussianBlur(targetImg, (9, 9),0)
-	cv2.imwrite("04_blurred.png", targetImg)
-	targetImg = cv2.Canny(targetImg, 80, 40.0, 3, L2gradient=True)
-	cv2.imwrite("05_canny.png", targetImg)
-	#targetImg = cv2.equalizeHist(targetImg, targetImg)
-	#cv2.imwrite("06_equalizeHist.png", targetImg)
-	_ ,targetImg = cv2.threshold(targetImg, 180, 255, cv2.THRESH_BINARY)
-	#cv2.imwrite("07_threshold.png", targetImg)
-	kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
-	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_CLOSE, kernel, iterations=5)
-	targetImg = cv2.morphologyEx(targetImg, cv2.MORPH_OPEN, kernel, iterations=3)
-	im2, contours, hierarchy = cv2.findContours(targetImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-	for cnt in contours:
-		retval = cv2.boundingRect(cnt)
-		centerX = retval[0] + retval[2] / 2
-		centerY = retval[1] + retval[3] / 2
-		cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
-		# print(retval) # for testing only remove later
-		cv2.circle(img, (cX, cY), 5, (255, 255, 255), -1)
-		cv2.imwrite("09_contours_2.png", im2)
-	targetImg = cv2.moments(targetImg)
-	cv2.imshow("08_final", im2)
+	img = vs.read()
+	#img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+	#img = img[160:490,84:416]
+	#Grayscale
+	targetImg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	inverseImg = cv2.bitwise_not(targetImg)
+	for threshVal in range(150, 160, 10):
+	    _ ,truncInvImg = cv2.threshold(inverseImg, threshVal, 255, cv2.THRESH_TRUNC)
+	gradientImg = cv2.GaussianBlur(truncInvImg, (201,201),0)
+	alpha = 0.5
+	blendedImg = cv2.addWeighted(targetImg, alpha, gradientImg, (1.0 - alpha), 0.0)
+	_ ,outImg = cv2.threshold(blendedImg, threshVal, 255, cv2.THRESH_BINARY)
+	_ ,outImg = cv2.threshold(blendedImg, 130, 255, cv2.THRESH_BINARY)
+	# cv2.imshow("imagehacking", outImg)
+	# cv2.imwrite("imagehacking_live.png", outImg)
+	# This part is from Tiago:
+	#kernel = cv2.getStructuringElement(	cv2.MORPH_RECT, (3,3))
+	#targetImg = cv2.morphologyEx(outImg, cv2.MORPH_CLOSE, kernel, iterations=1)
+	#targetImg = cv2.morphologyEx(outImg, cv2.MORPH_OPEN, kernel, iterations=1)
+	# cv2.imshow("imagehacking with morphology", targetImg)
+	# cv2.imwrite("imagehacking_live_wMorphology.png", targetImg)
+	#im2, contours, hierarchy = cv2.findContours(outImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	#for c in contours:
+		# calculate moments for each contour
+		#M = cv2.moments(c)
+		# calculate x,y coordinate of center
+		#cX = int(M["m10"] / M["m00"])
+		#cY = int(M["m01"] / M["m00"])
+		#cv2.circle(img, (cX, cY), 5, (0, 0, 255), -1)
+		#cv2.imwrite("centerpoints.png", img)
+	img = cv2.resize(outImg,None,fx=0.25, fy=0.25, interpolation = cv2.INTER_CUBIC)
+	cv2.imshow("final", img)
+		
 	
 
 	# loop over the frames from the video stream
@@ -150,19 +157,20 @@ def viewStream():
 		img = vs.read()
 		# unwarp the stream
 		# img = cv2.undistort(img, mtx, dist)
-		img = cv2.rotate(img, cv2.ROTATE_180)
-		img = img[75:425,130:480]
+		img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+		img = img[400:2100,400:2100]
 		# run the brightSpot function to find the laser point
 		# create a grey version of the stream
 		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 		# apply a Gaussian blur to the grey version then find the brightest region
 		gray = cv2.GaussianBlur(gray, (5, 5),0)
 		(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
-		cv2.circle(img, maxLoc, 5, (255, 0, 0), 2)
+		cv2.circle(img, maxLoc, 25, (0, 0, 255), 2)
 		# display the results in a window called LaserPoint
 		# wait 1 millisecond
 		cv2.waitKey(1)
 		#cv2.imshow("gray", gray2) # for testing
+		img = cv2.resize(img,None,fx=0.25, fy=0.25, interpolation = cv2.INTER_CUBIC)
 		cv2.imshow("LaserPoint", img)
 		# cv2.imshow("TargetLayer", targetImg)
 		#cv2.imshow("threshold", im2)

@@ -283,7 +283,7 @@ def labelUpdate():
 	textVar25.set('x= '+str(gridCal[48])+'\n y= '+(str(gridCal[49])))
 
 # Laser power setter
-laserPower = 12500
+laserPower = 25000
 
 # Key binding - still testing this
 
