@@ -124,6 +124,7 @@ def ViewStream():
 		cv2.imshow("LaserPoint", liveImg)
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
+			time.sleep(1)
 			break
 			cv2.destroyAllWindows()
 
@@ -133,6 +134,7 @@ AutoCrop()
 GridMap()
 ViewStream()
 
+time.sleep(1)
 cv2.destroyAllWindows()
 vs.stop()
 p.shutdown()
