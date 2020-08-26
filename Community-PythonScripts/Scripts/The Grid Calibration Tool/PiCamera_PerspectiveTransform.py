@@ -36,6 +36,7 @@ def printerStart():
 # OpenCV Functions
 
 def AutoCrop():
+	global Mom
 	# Auto Crop Parameters - Run at program start:
 	autoCrop = vs.read()
 	gray = cv2.cvtColor(autoCrop, cv2.COLOR_BGR2GRAY)
@@ -59,8 +60,10 @@ def AutoCrop():
 	pts1 = np.float32([[corn[3][0],corn[3][1]],[corn[2][0],corn[2][1]],[corn[1][0],corn[1][1]],[corn[0][0],corn[0][1]]])
 	pts2 = np.float32([[0,0],[1690,0],[0,1690],[1690,1690]])
 	Mom = cv2.getPerspectiveTransform(pts1,pts2)
+	cv2.destroyAllWindows()
 
 def GridMap():
+	global pointsInImg
 	img = vs.read()
 	img = cv2.warpPerspective(img,Mom,(1690,1690))
 	img = cv2.rotate(img, cv2.ROTATE_180)
@@ -95,6 +98,7 @@ def GridMap():
 	# cv2.imshow("final", gridImg) # For testing
 	#for point in pointsInImg:
 		#print(type(point[0]), type(point[1]))
+	cv2.destroyAllWindows()
 def ViewStream():	
 	# loop over the frames from the video stream
 	while True:
@@ -121,6 +125,7 @@ def ViewStream():
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
 			break
+		cv2.destroyAllWindows()
 
 # Do the things:
 cameraInit()
