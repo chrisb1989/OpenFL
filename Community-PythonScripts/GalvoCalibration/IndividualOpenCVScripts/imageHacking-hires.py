@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 
 origImg = cv2.imread("images/newtarget.png")
+targetImg = origImg.copy()
 #targetImg = cv2.imread("images/circles.png")
 #targetImg = cv2.imread("images/lit.png")
 
