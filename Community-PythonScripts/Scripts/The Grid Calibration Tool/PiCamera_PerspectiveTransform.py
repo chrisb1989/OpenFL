@@ -6,6 +6,9 @@ import cv2
 import numpy as np
 from OpenFL import Printer, FLP
 
+p=Printer.Printer() # Uncomment for real printer
+#p=Printer.DummyPrinter() #This is for testing, comment when using real printer
+
 def cameraInit():
 	global vs
 	# Are we using the Pi Camera?
@@ -20,12 +23,9 @@ def cameraInit():
 	time.sleep(2.0)
 
 def printerStart():
-	global p
 	global laserPower
 	global gridCal
 	# Printer Stuff
-	p=Printer.Printer() # Uncomment for real printer
-	#p=Printer.DummyPrinter() #This is for testing, comment when using real printer
 	p.initialize()
 	# use ravel to flatten the grid table to 1D
 	gridCal = np.ravel(p.read_grid_table())
