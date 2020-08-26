@@ -8,7 +8,7 @@ origImg = cv2.imread("images/newtarget.png")
 #targetImg = cv2.imread("images/lit.png")
 
 # Downsample for speed
-targetImg = cv2.GaussianBlur(origImg, (7,7),0)
+#targetImg = cv2.GaussianBlur(origImg, (7,7),0)
 sizeX = targetImg.shape[0]
 sizeY = targetImg.shape[1]
 #targetImg = cv2.resize(targetImg, (int(sizeX), int(sizeY)))
@@ -45,7 +45,8 @@ cv2.imwrite("images/blendedImg.png", blendedImg)
 #claheImg = clahe.apply(blendedImg)
 #cv2.imwrite("images/claheImg.png", targetImg)
 
-thresVal=132
+# Chop off everything except the target circles
+threshVal=132
 #for threshVal in range(128, 150, 2):
 #_ ,outImg = cv2.threshold(blendedImg, threshVal, 255, cv2.THRESH_BINARY)
 _ ,outImg = cv2.threshold(blendedImg, threshVal, 255, cv2.THRESH_BINARY)
@@ -59,9 +60,6 @@ circleImg = outImg
 #origImg = cv2.resize(origImg, (sizeX, sizeY))
 circleImg = cv2.GaussianBlur(circleImg, (11,11),0)
 cv2.imwrite("images/circleImg.png", circleImg)
-
-#minDist = int(sizeX / 4) # Always true if you can see all 25 targets
-minDist = 100
 
 # Here is a multi-nested loop for exploring HoughCircles() parameters.
 # In fairly extensive testing, the most important parameters appear to be
@@ -110,7 +108,7 @@ exit()
 
 #minDist=120; parm1 = 10; parm2 = 10; minSize = 5; maxSize = 2
 minDist=270; parm1 =100; parm2 = 200; minSize = 3; maxSize = 4
-circles = cv2.HoughCircles(circleImg, cv2.HOUGH_GRADIENT, 0.4,
+circles = cv2.HoughCircles(circleImg, cv2.HOUGH_GRADIENT, 1.8,
     minDist, parm1, parm2, minSize, maxSize)
 
 try:
@@ -122,9 +120,9 @@ except:
 print circles
 for i in circles[0,:]:
     # draw the outer circle
-    cv2.circle(origImg,(i[0],i[1]),i[2],(0,255,0),2)
+    cv2.circle(origImg,(i[0],i[1]),i[2],(0,255,0),3)
     # draw the center of the circle
-    #cv2.circle(origImg,(i[0],i[1]),2,(0,255,0),2)
+    cv2.circle(origImg,(i[0],i[1]),2,(0,255,0),2)
 
 origImg = cv2.resize(origImg, (int(sizeX/2), int(sizeY/2)))
 
