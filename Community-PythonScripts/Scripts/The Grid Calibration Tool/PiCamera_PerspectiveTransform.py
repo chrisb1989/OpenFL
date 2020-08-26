@@ -1,22 +1,39 @@
 # import the necessary packages
 from imutils.video import VideoStream
-import datetime
-import argparse
 import imutils
 import time
 import cv2
 import numpy as np
+from OpenFL import Printer, FLP
 
-# Are we using the Pi Camera?
-usingPiCamera = True
-# Set initial frame size.
-frameSize = (1808, 1808)
- 
-# Initialize mutithreading the video stream.
-vs = VideoStream(src=0, usePiCamera=usingPiCamera, resolution=frameSize,
-		framerate=32).start()
-# Allow the camera to warm up.
-time.sleep(2.0)
+def cameraInit():
+	global vs
+	# Are we using the Pi Camera?
+	usingPiCamera = True
+	# Set initial frame size.
+	frameSize = (1808, 1808)
+	 
+	# Initialize mutithreading the video stream.
+	vs = VideoStream(src=0, usePiCamera=usingPiCamera, resolution=frameSize,
+			framerate=32).start()
+	# Allow the camera to warm up.
+	time.sleep(2.0)
+
+def printerStart():
+	global p
+	global laserPower
+	global gridCal
+	# Printer Stuff
+	p=Printer.Printer() # Uncomment for real printer
+	#p=Printer.DummyPrinter() #This is for testing, comment when using real printer
+	p.initialize()
+	# use ravel to flatten the grid table to 1D
+	gridCal = np.ravel(p.read_grid_table())
+
+	# Laser power global variable
+	laserPower = 25000
+
+# OpenCV Functions
 
 def AutoCrop():
 	# Auto Crop Parameters - Run at program start:
@@ -104,9 +121,13 @@ def ViewStream():
 		# break the while loop if user presses 'q' key
 		if cv2.waitKey(1000) & 0xFF == ord('q'):
 			break
+
+# Do the things:
+cameraInit()
 AutoCrop()
 GridMap()
 ViewStream()
 
 cv2.destroyAllWindows()
 vs.stop()
+p.shutdown()

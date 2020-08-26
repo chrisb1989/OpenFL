@@ -139,7 +139,7 @@ def viewStream():
 		centerY = retval[1] + retval[3] / 2
 		cv2.rectangle(im2, (retval[0], retval[1]), (retval[0]+retval[2], retval[1]+retval[3]), 100)
 		# print(retval) # for testing only remove later
-		cv2.circle(img, (cX, cY), 5, (255, 255, 255), -1)
+		im2[centerX, centerY] = 100
 		cv2.imwrite("09_contours_2.png", im2)
 	targetImg = cv2.moments(targetImg)
 	cv2.imshow("08_final", im2)
