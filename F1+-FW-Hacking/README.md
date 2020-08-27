@@ -28,3 +28,4 @@ Similarly, you can change the serial name of your F1/F1+. To find the serial nam
 
 # Other Relevant Links:
 - This Google group figured out how to hack the CTC Riverside (F1+ Clone) to run F1+ firmware: [CTC Riverside Hacking](https://groups.google.com/forum/#!topic/ctc3dprinters/PbFQm_7dXcs%5B1-25%5D)
+- Deep dive into galvonometers: [Inside the Closed Loop Laser Beam Stearing Galvanometer (YouTube)](https://www.youtube.com/watch?v=HIBH55cbfLM&list=WL&index=38&t=0s)
