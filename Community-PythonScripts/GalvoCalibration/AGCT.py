@@ -1,14 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Grid calibration tool for Form1+ digital galvos
+# A Grid Calibration Tool (AGCT) for Form1+ digital galvos
 # Copyright 2020, Photonsters
 # Micah Vestal [Lavachemist] and Jarrod Smith [MakerMatrix]
 #
 # Licensed under the Apache License
 # https://www.apache.org/licenses/LICENSE-2.0.txt
 #
-# 8-) Wear laser glasses or you'll put your eye out -> X-{
+# Wear laser glasses or you'll put your eye out:  8-)  ||  X-{
 
 import time
 from Tkinter import *
@@ -124,8 +124,6 @@ def cursorKey(event):
 def updateLaser(state=0):
 	# Update the laser power, position, UI elements.
 	# The state parameter can be 0 (off) or not 0 (on)
-	# tk.Scale() insists on sending the current value of the slider as
-	# a string argument - but we ignore it and make it optional
 	global actRow
 	global actCol
 	global laserState
@@ -156,7 +154,7 @@ def updateLaser(state=0):
 		try:
 			p.set_laser_sint16(xticks, yticks, 0)
 		except:
-			pass
+			pass # Currently must ignore these exceptions because brokenness ensues
 	else:
 		# Update the laser power, move the galvos, and update the UI
 		msg = "The laser is ON with power = " + str(my_mW) + "mW"
@@ -171,7 +169,7 @@ def updateLaser(state=0):
 		try:
 			p.set_laser_uint16(xticks, yticks, laserPower_ticks)
 		except:
-			pass
+			pass # Currently must ignore these exceptions because brokenness ensues
 	return()
 ################################################################################
 def updatePower(mW_str):
@@ -238,7 +236,7 @@ def inspectGrid():
 			statusMsg += str(targetNum) + "/25 ("
 			statusMsg += str(remainingTime) + "s remaining)."
 			updateStatus(statusMsg)
-			root.update()
+			root.update() # Update the UI each time through so we can see
 			time.sleep(sleepsecs)
 			gridButton[row][col]["bg"] = bgColor # reset bg color
 			gridButton[row][col]["fg"] = fgColor # reset fg color
@@ -282,7 +280,7 @@ def uiFrames():
 	# This will keep things centered on the main window
 	root.columnconfigure(0, weight=1)
 	
-	#All the grid target buttons go in this frame
+	# All the grid target buttons go in this frame
 	gridFrame = LabelFrame(root, text=" Choose A Target ", bd=3, pady=5, padx=5, \
 		labelanchor=N, relief=RIDGE)
 	gridFrame.grid(row=0, column=0, padx=10, pady=10, sticky=NSEW)
@@ -293,30 +291,26 @@ def uiFrames():
 	laserFrame = LabelFrame(root, text=" Laser Controls ")
 	laserFrame.config(bd=3, padx=10, pady=10, labelanchor=N, relief=RIDGE)
 	laserFrame.grid(row=1, column=0, pady=10, padx=10, sticky=NSEW)
-	# Make it so any subframes equally distribute across the X dimension
+	# Make it so our subframes equally distribute across the X dimension
 	laserFrame.columnconfigure(0, weight=1)
 	laserFrame.columnconfigure(1, weight=1)
 	
 	# A sub frame for the jog/toggle buttons and power slider (left)
 	leftLaserFrame = Frame(laserFrame, relief=FLAT)
 	leftLaserFrame.config(padx=10, pady=10, bd=0)
-	leftLaserFrame.grid(row=0, column=0, rowspan=2, padx=lfGridPadX, sticky=NSEW)
+	leftLaserFrame.grid(row=0, column=0, rowspan=2, padx=lfGridPadX, sticky=NE)
 	
+	# A sub frame for the jogsize radio buttons and Inspect/Save (right)
 	rightLaserFrame = Frame(laserFrame, relief=FLAT)
 	rightLaserFrame.config(padx=10, pady=0, bd=0)
-	rightLaserFrame.grid(row=0, column=1, padx = lfGridPadX, sticky=NSEW)
+	rightLaserFrame.grid(row=0, column=1, padx = lfGridPadX, sticky=NW)
 	# Make it so any objects equally distribute across the Y dimension
 	rightLaserFrame.columnconfigure(0, weight=1)
-	# Tweak the spacing of the Save, Inspect buttons relative to the radios
-	rightLaserFrame.rowconfigure(0, weight=1)
-	rightLaserFrame.rowconfigure(1, weight=1)
-	rightLaserFrame.rowconfigure(2, weight=1)
 	
 	# A subframe for the jog tick sizes (right)
 	jogSizeFrame = LabelFrame(rightLaserFrame, text="Galvo Ticks\nPer Move", relief=GROOVE)
 	jogSizeFrame.config(padx=10, pady=0, bd=1, labelanchor=N)
-	jogSizeFrame.grid(row=0, column=1, padx=10, pady=10, sticky=NSEW)
-	
+	jogSizeFrame.grid(row=0, column=1, padx=10, pady=10)
 	return()
 ################################################################################
 def mkGridButtons():
@@ -331,12 +325,15 @@ def mkGridButtons():
 			btn = gridButton[row][col] = Button(gridFrame, text=thisLabel, relief=GROOVE)
 			btn.config(pady=gridPadY, activebackground=actBgColor, borderwidth=grooveBorder)
 			btn.config(command = lambda r=row, c=col: gridBtnPress( r, c))
+	
 	# Reverse the first grid button dimension (row indices) while we draw them
 	# so that the UI orientation matches the front-view printer orientation
 	gridButton.reverse()
+	
 	for row in range(5):
 		for col in range(5):
 			gridButton[row][col].grid(row=row, column=col, padx=2, pady=2)
+	
 	# Now put them back so they once again match their callback indices
 	gridButton.reverse()
 	return()
@@ -440,22 +437,33 @@ def mkMenus():
 	statusLabel.grid(row=2, column=0, columnspan=5, padx=0, pady=0, sticky=NSEW)
 	return()
 ################################################################################	
+def bindCursorKeys():
+	# Key binding for jogging the laser with cursor keys
+	root.bind('<Up>', cursorKey)
+	root.bind('<Left>', cursorKey)
+	root.bind('<Right>', cursorKey)
+	root.bind('<Down>', cursorKey)
+	return()
+################################################################################	
 def disableUI(parent):
-	# Recursively disable all UI elements under a parent containiner (Frame, Menu)
-	for child in parent.winfo_children():
-		wtype = child.winfo_class()
-		# If the child is also a Frame or Menu, call ourself again, passing it
+	# Recursively disable all UI elements under a parent container (Frame, Menu)
+	
+	for child in parent.winfo_children(): # enumerates all child objects
+		wtype = child.winfo_class() # returns the type of object
+		# If the child is also a Frame or Menu, call ourself again with that
 		if wtype in ('Frame','Labelframe','Menu'):
 			disableUI(child)
 		else:
 			child.configure(state=DISABLED)
+			
 	return()
 ################################################################################	
 def enableUI(parent):
-	# Recursively enable all UI elements under a parent containiner (Frame, Menu)
-	for child in parent.winfo_children():  # unumerates all child objects
+	# Recursively enable all UI elements under a parent container (Frame, Menu)
+	
+	for child in parent.winfo_children(): # enumerates all child objects
 		wtype = child.winfo_class() # returns the type of object
-		# If the child is also a Frame or Menu, call ourself again, passing it
+		# If the child is also a Frame or Menu, call ourself again with that
 		if wtype in ('Frame','Labelframe','Menu'):
 			enableUI(child)
 		else:
@@ -483,20 +491,16 @@ root.tk.call('wm','iconphoto',root._w,img)
 # Read the calibration grid from the printer
 calGrid = p.read_grid_table()
 
-# Buid the UI
+# Build the UI
 uiFrames()
 mkGridButtons()
 mkJogButtons()
 mkJogSizeButtons()
 mkLaserControls()
 mkMenus()
+bindCursorKeys()
 
-# Key binding for jogging the laser with cursor keys
-root.bind('<Up>', cursorKey)
-root.bind('<Left>', cursorKey)
-root.bind('<Right>', cursorKey)
-root.bind('<Down>', cursorKey)
-
+# Give the UI control of the application
 root.mainloop()
 
 p.shutdown()
