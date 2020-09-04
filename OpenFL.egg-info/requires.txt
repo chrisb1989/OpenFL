@@ -1,0 +1,4 @@
+enum34
+numpy
+pyusb>=1.0.0rc1
+scipy
