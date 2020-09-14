@@ -71,8 +71,13 @@ $ sudo apt-get install telnet
 
 $ telnet 127.0.0.1 4444
 
+4) To read read the F1+ configuration to a .bin file called test.bin, run the following command from the openocd command line: 
 
-- To read read the F1+ configuration to a .bin file called test.bin, run the following command from the openocd command line: flash read_bank 0 test.bin
+flash read_bank 0 test.bin (this will save the firmware as test.bin in the OpenOCD directory)
+
+5) Exit the telnet session with the exit command.
+
+- You can then edit your firmware with a hex editor of your choice (hexedit is installed by default).
 
 - We used these links as reference material to set up the configuration, all credit goes to the original authors:
 
