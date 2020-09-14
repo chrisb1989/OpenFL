@@ -29,3 +29,43 @@ Similarly, you can change the serial name of your F1/F1+. To find the serial nam
 # Other Relevant Links:
 - This Google group figured out how to hack the CTC Riverside (F1+ Clone) to run F1+ firmware: [CTC Riverside Hacking](https://groups.google.com/forum/#!topic/ctc3dprinters/PbFQm_7dXcs%5B1-25%5D)
 - Deep dive into galvonometers: [Inside the Closed Loop Laser Beam Stearing Galvanometer (YouTube)](https://www.youtube.com/watch?v=HIBH55cbfLM&list=WL&index=38&t=0s)
+
+# OpenOCD Configuration (PiSWD Rev 0.1)
+
+- Installation steps for OpenOCD on your Raspberry Pi (3 or newer):
+
+1) $ sudo apt-get install git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev
+
+2) $ git clone http://openocd.zylin.com/openocd
+
+3) $ cd openocd
+
+4) $ ./bootstrap"
+
+5) $ ./configure --enable-sysfsgpio --enable-bcm2835gpio
+
+6) $ make
+
+- Ensure that "/usr/local/share/openocd/scripts/interface" has the following configuration swd pin configuration: bcm2835gpio_swd_nums 25 24
+
+- Use the openocd.cfg file in this repository
+
+- This the pinout for this configuration if you are not using a PiSWD board:
+
+SWDCLK on the F1/F1+ JTAG connector to pin 22 (GPIO 25) on your Raspberry Pi
+SWDIO on the F1/F1+ JTAG connector to pin 18 (GPIO 24) on your Raspberry Pi
+Ground on the F1/F1+ JTAG connector to pin 6 or pin 9 (ground) on your Raspberry Pi
+
+- Either provide 3.3V to the VCC pin on the F1/F1+ or power the F1/F1+ using the power supply, but never do both at the same time!
+
+- SWDRST is not used, but it is connected on the PiSWD Rev 0.1 board if you need it for some reason.
+
+- We used these links as reference material to set up the configuration, all credit goes to the original authors:
+
+http://openocd.org/doc/html/index.html
+
+https://learn.adafruit.com/programming-microcontrollers-using-openocd-on-raspberry-pi/compiling-openocd
+
+https://iosoft.blog/2019/01/28/raspberry-pi-openocd/ 
+
+https://medium.com/@ly.lee/openocd-on-raspberry-pi-better-with-swd-on-spi-7dea9caeb590
