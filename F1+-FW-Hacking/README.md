@@ -46,7 +46,7 @@ Similarly, you can change the serial name of your F1/F1+. To find the serial nam
 
 6) $ make
 
-- Ensure that "/usr/local/share/openocd/scripts/interface" has the following configuration swd pin configuration: bcm2835gpio_swd_nums 25 24
+- Ensure that "/usr/local/share/openocd/scripts/interface" has the following swd pin configuration: bcm2835gpio_swd_nums 25 24
 
 - Use the openocd.cfg file in this repository
 
