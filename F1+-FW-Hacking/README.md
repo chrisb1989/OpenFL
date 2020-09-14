@@ -60,6 +60,20 @@ Ground on the F1/F1+ JTAG connector to pin 6 or pin 9 (ground) on your Raspberry
 
 - SWDRST is not used, but it is connected on the PiSWD Rev 0.1 board if you need it for some reason.
 
+- To start OpenOCD:
+1) install telnet and the telnet daemon:
+
+$ sudo apt-get install telnetd
+$ sudo apt-get install telnet
+
+2) run the following command on your Pi: sudo openocd
+3) Open a second terminal window, or another SSH session to your Pi and use telnet to connect to your Pi on port 4444: 
+
+$ telnet 127.0.0.1 4444
+
+
+- To read read the F1+ configuration to a .bin file called test.bin, run the following command from the openocd command line: flash read_bank 0 test.bin
+
 - We used these links as reference material to set up the configuration, all credit goes to the original authors:
 
 http://openocd.org/doc/html/index.html
