@@ -40,7 +40,7 @@ Similarly, you can change the serial name of your F1/F1+. To find the serial nam
 
 3) $ cd openocd
 
-4) $ ./bootstrap"
+4) $ ./bootstrap
 
 5) $ ./configure --enable-sysfsgpio --enable-bcm2835gpio
 
