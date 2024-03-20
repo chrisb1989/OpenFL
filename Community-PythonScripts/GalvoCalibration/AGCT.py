@@ -11,8 +11,10 @@
 # Wear laser glasses or you'll put your eye out:  8-)  ||  X-{
 
 import time
-from Tkinter import *
-import tkMessageBox as mb
+#from Tkinter import * # python 2.7
+#import tkMessageBox as mb # python 2.7
+from tkinter import * # python 3
+import tkinter.messagebox as mb # python 3
 from OpenFL import Printer, FLP
 
 ################################################################################
@@ -115,7 +117,7 @@ def cursorKey(event):
 	elif direction == "Right":
 		jogLaser(1, 1)
 	else: # Should never get here
-		print "ERROR in keybinding code.  Shutting down"
+		print ("ERROR in keybinding code.  Shutting down")
 		p.shutdown()
 		exit()
 		
@@ -281,8 +283,7 @@ def uiFrames():
 	root.columnconfigure(0, weight=1)
 	
 	# All the grid target buttons go in this frame
-	gridFrame = LabelFrame(root, text=" Choose A Target ", bd=3, pady=5, padx=5, \
-		labelanchor=N, relief=RIDGE)
+	gridFrame = LabelFrame(root, text=" Choose A Target ", bd=3, pady=5, padx=5, labelanchor=N, relief=RIDGE)
 	gridFrame.grid(row=0, column=0, padx=10, pady=10, sticky=NSEW)
 	for col in range(5):
 		gridFrame.columnconfigure(col, weight=1)
@@ -290,7 +291,7 @@ def uiFrames():
 	# All the laser controls go in another frame
 	laserFrame = LabelFrame(root, text=" Laser Controls ")
 	laserFrame.config(bd=3, padx=10, pady=10, labelanchor=N, relief=RIDGE)
-	laserFrame.grid(row=1, column=0, pady=10, padx=10, sticky=NSEW)
+	laserFrame.grid(row=0, column=1, pady=10, padx=10, sticky=NSEW)
 	# Make it so our subframes equally distribute across the X dimension
 	laserFrame.columnconfigure(0, weight=1)
 	laserFrame.columnconfigure(1, weight=1)
@@ -411,6 +412,122 @@ def mkLaserControls():
 	saveButton=Button(rightLaserFrame, text="Save", command=lambda: saveGrid(calGrid))
 	saveButton.grid(row=2, column=1, padx=10, pady=2, sticky=NSEW)
 	return()
+################################################################################
+
+def setAbsoluteHeight():
+
+	absoluteText = text=heightTextInput.get()
+	
+	if str.isdigit(absoluteText.replace(".", "", 1)) or str(absoluteText) == "": # checks if the input is an int or float
+		move = float(absoluteText) - globals()['currentZHeight'] # Calculating the move distance
+		moveHeightRelative(move)
+	else:
+		mb.showinfo(title="Wrong input format", message="Please input a number in the absolute height text box. \nUse \".\" with decimal numbers. Ex. \"140.3\"")
+		return() #Give a message to the user, that they have not entered a proper int or float.
+        
+	updateZHeightDisplay()
+	
+	return()
+    
+def moveHeightRelative(move): #Takes a length to move in mm, which can be both a positive and negative number
+	if not isinstance(p, Printer.DummyPrinter): # Making sure the ui works even though we're using a dummy printer
+		fdrate = 2400
+		intmove = int(move*mmToStepsMultiplier)
+		p.move_z(steps=intmove, feedrate=fdrate)
+
+	globals()['currentZHeight'] = globals()['currentZHeight']+(move)
+	
+	updateZHeightDisplay()
+	return()
+
+def updateZHeightDisplay():
+	heightCurrentZLabel2.config(text=str(globals()['currentZHeight']))
+	return()
+
+def mkHeightControls():
+
+	global heightFrame
+	global heightCurrentZLabel2
+	global heightTextInput
+	global zJogSize
+	global mmToStepsMultiplier
+	global currentZHeight
+	
+    ## Height variables
+	currentZHeight = 165.0 # Only used when using a dummy printer
+	mmToStepsMultiplier = 400 # 400 steps per mm. That is what they have used from the vendor, i found.
+    
+	if not isinstance(p, Printer.DummyPrinter): # Making sure the ui boots up even though we're using a dummy printer
+		currentZHeight = p.read_zsensor_height()
+	
+	## Main height frame
+	heightFrame = LabelFrame(root, text=" Z Height Controls ", bd=3, pady=5, padx=5, labelanchor=N, relief=RIDGE)
+	heightFrame.grid(row=1, column=0, pady=10, padx=10, sticky=NSEW)
+	
+	## Absolute height settings
+	heightAbsoluteHeightFrame = LabelFrame(heightFrame, text="Absolute Height")
+	heightAbsoluteHeightFrame.grid(row=0, column=0)
+	
+	heightSetBtn = Button(heightAbsoluteHeightFrame, text="Set height", borderwidth=reliefBorder, command=setAbsoluteHeight)
+	heightSetBtn.grid(row=1, column=0, padx=3, pady=2)
+	
+	heightTextInput = Entry(heightAbsoluteHeightFrame, width=20, text=1, justify="right")
+	heightTextInput.grid(row=0, column=0, padx=3, pady=2)
+	heightTextInput.insert(0, "0") 
+	
+	heightAbsoluteInputLabel = Label(heightAbsoluteHeightFrame, text="mm")
+	heightAbsoluteInputLabel.grid(row=0, column=1, padx=3, pady=2)
+	
+	
+	
+	## Relative height
+	
+	heightRelativeHeightFrame = LabelFrame(heightFrame, text="Relative Height")
+	heightRelativeHeightFrame.grid(row=0, column=1)
+	
+	# Minus plus buttons
+	mpBtnFrame = Frame(heightRelativeHeightFrame, relief=RAISED)
+	mpBtnFrame.grid(row=1, column=0)
+	
+    
+	heightPlusBtn = Button(mpBtnFrame, text="Z +", borderwidth=reliefBorder, width=3, command=lambda: moveHeightRelative(zJogSize.get()))
+	heightPlusBtn.grid(row=0, column=0, padx=3, pady=2, sticky = NSEW)
+	
+	heightMinusBtn = Button(mpBtnFrame, text="Z -", borderwidth=reliefBorder, width=3, command=lambda: moveHeightRelative(zJogSize.get() * -1))
+	heightMinusBtn.grid(row=0, column=1, padx=3, pady=2, sticky = NSEW)
+	
+	# Radio buttons for -/+
+	sizeBtnFrame = Frame(heightRelativeHeightFrame, relief=RAISED)
+	sizeBtnFrame.grid(row=0, column=0, sticky = NSEW)
+	
+	zJogSize = DoubleVar(value=0.1)
+	
+	zrbtn01 = Radiobutton(sizeBtnFrame, text="0.1mm", variable=zJogSize, value=0.1)
+	zrbtn01.grid(row=0, column=0, sticky=W, padx=3, pady=2)
+	
+	zrbtn1 = Radiobutton(sizeBtnFrame, text="1mm", variable=zJogSize, value=1.0)
+	zrbtn1.grid(row=0, column=1, sticky=W, padx=3, pady=2)
+	
+	zrbtn10 = Radiobutton(sizeBtnFrame, text="10mm", variable=zJogSize, value=10.0)
+	zrbtn10.grid(row=0, column=2, sticky=W, padx=3, pady=2)
+	
+	
+	
+	## Current height display
+	
+	heightCurrentZLabel1 = Label(heightFrame, text="Current Z height: ")
+	heightCurrentZLabel1.grid(row=1, column=0, sticky=E)
+	
+	heightCurrentFrame = Frame(heightFrame, relief=RAISED)
+	heightCurrentFrame.grid(row=1, column=1, sticky=W)
+	
+	heightCurrentZLabel2 = Label(heightCurrentFrame, text="0")
+	heightCurrentZLabel2.grid(row=0, column=0, sticky=W)
+	
+	heightCurrentZLabel3 = Label(heightCurrentFrame, text="mm")
+	heightCurrentZLabel3.grid(row=0, column=1, sticky=W)
+	
+	return()
 ################################################################################	
 def mkMenus():
 	# Draw the menu, and a status bar
@@ -434,7 +551,7 @@ def mkMenus():
 	statusText += " or press Inspect to scan the grid."
 	statusLabel = Label(root, text=statusText)
 	statusLabel.config( pady=0, relief=RAISED, anchor=W, bd=2, bg="gray80")
-	statusLabel.grid(row=2, column=0, columnspan=5, padx=0, pady=0, sticky=NSEW)
+	statusLabel.grid(row=3, column=0, columnspan=5, padx=0, pady=0, sticky=NSEW)
 	return()
 ################################################################################	
 def bindCursorKeys():
@@ -494,11 +611,13 @@ calGrid = p.read_grid_table()
 # Build the UI
 uiFrames()
 mkGridButtons()
+mkHeightControls()
 mkJogButtons()
 mkJogSizeButtons()
 mkLaserControls()
 mkMenus()
 bindCursorKeys()
+updateZHeightDisplay()
 
 # Give the UI control of the application
 root.mainloop()
